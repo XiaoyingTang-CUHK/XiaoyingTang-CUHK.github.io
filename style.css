@@ -82,12 +82,13 @@ header {
 }
 
 /* 研究页面样式 */
+/* 优化研究领域三列横排样式 */
 .research-grid {
     display: flex;
     justify-content: center;
     align-items: stretch;
     gap: 2.2rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* 强制不换行 */
     margin: 2rem 0 0 0;
 }
 .research-item {
@@ -96,7 +97,7 @@ header {
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     border-left: 4px solid #C8102E;
     padding: 2rem 1.7rem 1.7rem 1.7rem;
-    flex: 1 1 320px;
+    flex: 1 1 0;
     max-width: 350px;
     min-width: 260px;
     margin: 0;
@@ -104,6 +105,7 @@ header {
     flex-direction: column;
     align-items: center;
     transition: box-shadow 0.2s;
+    height: 100%; /* 高度自适应父容器 */
 }
 .research-item:hover {
     box-shadow: 0 4px 24px rgba(200,16,46,0.10);
@@ -124,6 +126,7 @@ header {
 @media (max-width: 1100px) {
     .research-grid {
         gap: 1.2rem;
+        flex-wrap: wrap; /* 小屏幕允许换行 */
     }
     .research-item {
         max-width: 100%;
@@ -135,6 +138,7 @@ header {
         flex-direction: column;
         align-items: center;
         gap: 1.2rem;
+        flex-wrap: wrap;
     }
     .research-item {
         width: 95%;
@@ -1045,4 +1049,15 @@ footer .school-title {
     padding-left: 0;
     padding-right: 0.2rem;
   }
+} 
+
+.research-item.wide {
+    max-width: 900px;
+    min-width: 400px;
+    width: 100%;
+    margin: 2.2rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 } 
