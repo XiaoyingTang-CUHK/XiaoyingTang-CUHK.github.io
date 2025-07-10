@@ -190,6 +190,33 @@ main {
     font-size: 1.05rem;
 }
 
+.news-list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+.news-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5em;
+    line-height: 1.8;
+}
+.news-date {
+    min-width: 5.5em;
+    display: inline-block;
+    color: #000;
+    font-weight: 400;
+    margin-right: 0.5em;
+    text-align: right;
+}
+.news-award {
+    color: #C8102E;
+    font-weight: bold;
+}
+.news-journal {
+    font-weight: bold;
+}
+
 footer {
     background: #000;
     color: #fff;
