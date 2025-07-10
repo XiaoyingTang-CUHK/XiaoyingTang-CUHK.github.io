@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-lab | 香港中文大学（深圳）人工智能实验室</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- 上联：学校名称栏 -->
+    <div class="school-header">
+        <div class="school-logo">T</div>
+        <span class="school-title">香港中文大学（深圳）</span>
+    </div>
+    <header>
+        <nav class="navbar">
+            <div class="logo">T-lab</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="research.html">研究</a></li>
+                <li><a href="publications.html">出版物</a></li>
+                <li><a href="team.html">团队</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+                <li class="language-switch">
+                    <a href="../en/index.html" class="lang-btn">EN</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome">
+            <h1>欢迎来到 T-lab</h1>
+            <div class="home-flex">
+                <div class="home-intro">
+                    <p>T-lab 专注于人工智能前沿研究，涵盖机器学习、计算机视觉、数据挖掘等方向。我们的研究以互联网、社交媒体、传感器、文本、图像、音频、视频等多源大数据为驱动，致力于理论与实际应用的结合。</p>
+                </div>
+                <div class="home-carousel">
+                    <div class="carousel">
+                        <div class="carousel-slide active"><img src="../placeholder.png" alt="slide1"></div>
+                        <div class="carousel-slide"><img src="../placeholder.png" alt="slide2"></div>
+                        <div class="carousel-slide"><img src="../placeholder.png" alt="slide3"></div>
+                        <div class="carousel-controls">
+                            <button class="carousel-prev">&#10094;</button>
+                            <button class="carousel-next">&#10095;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="news">
+            <h2>实验室新闻</h2>
+            <ul>
+                <li><strong>2025年2月</strong>，Dr. Fu 入选 2024 斯坦福全球前2%顶尖科学家名单。</li>
+                <li><strong>2025年1月</strong>，3篇论文被 ICLR25 接收。</li>
+                <li><strong>2025年1月</strong>，Dr. Fu 当选 AAAI Fellow。</li>
+                <li><strong>2024年6月</strong>，1篇论文被 NeurIPS24、WWW24、EMNLP24 接收。</li>
+                <li><strong>2024年3月</strong>，Dr. Fu 当选 AIMBE Fellow。</li>
+                <li><strong>2024年2月</strong>，5篇论文被 CVPR24 接收。</li>
+                <li><strong>2024年1月</strong>，Dr. Fu 获得 2024 IEEE Edward J. McCluskey 技术成就奖。</li>
+                <li><strong>2024年1月</strong>，2篇论文被 ICLR24 接收。</li>
+            </ul>
+        </section>
+    </main>
+    <!-- 下联：学校版权栏 -->
+    <footer>
+        <span class="school-title">香港中文大学（深圳）</span>
+        <div class="school-colleges">
+            <a href="https://sse.cuhk.edu.cn/">理工学院</a>
+            <a href="https://sme.cuhk.edu.cn/">经管学院</a>
+            <a href="https://sds.cuhk.edu.cn/">数据科学学院</a>
+            <a href="https://lhes.cuhk.edu.cn/">生命与健康科学学院</a>
+            <a href="https://hss.cuhk.edu.cn/">人文社科学院</a>
+            <a href="https://mus.cuhk.edu.cn/">音乐学院</a>
+            <a href="https://med.cuhk.edu.cn/">医学院</a>
+            <a href="https://sia.cuhk.edu.cn/">人工智能学院</a>
+        </div>
+        <span class="school-copyright">&copy; 2024 T-lab, 香港中文大学（深圳）。保留所有权利。</span>
+    </footer>
+    <script>
+// 简单轮播图JS
+const slides = document.querySelectorAll('.carousel-slide');
+const prevBtn = document.querySelector('.carousel-prev');
+const nextBtn = document.querySelector('.carousel-next');
+let current = 0;
+function showSlide(idx) {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+}
+prevBtn.onclick = () => { current = (current - 1 + slides.length) % slides.length; showSlide(current); };
+nextBtn.onclick = () => { current = (current + 1) % slides.length; showSlide(current); };
+setInterval(() => { current = (current + 1) % slides.length; showSlide(current); }, 4000);
+</script>
+</body>
+</html> 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-lab | The Chinese University of Hong Kong, Shenzhen</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- School Header -->
+    <div class="school-header">
+        <div class="school-logo">T</div>
+        <span class="school-title">The Chinese University of Hong Kong, Shenzhen</span>
+    </div>
+    <header>
+        <nav class="navbar">
+            <div class="logo">T-lab</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="language-switch">
+                    <a href="../zh/index.html" class="lang-btn">中文</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome">
+            <h1>Welcome to T-lab</h1>
+            <div class="home-flex">
+                <div class="home-intro">
+                    <p>T-lab focuses on cutting-edge artificial intelligence research, particularly in machine learning, computer vision, and data mining. Our research is driven by multi-source big data from the internet, social media, sensors, text, images, audio, and video, dedicated to combining theoretical and practical applications.</p>
+                </div>
+                <div class="home-carousel">
+                    <div class="carousel">
+                        <div class="carousel-slide active"><img src="../placeholder.png" alt="slide1"></div>
+                        <div class="carousel-slide"><img src="../placeholder.png" alt="slide2"></div>
+                        <div class="carousel-slide"><img src="../placeholder.png" alt="slide3"></div>
+                        <div class="carousel-controls">
+                            <button class="carousel-prev">&#10094;</button>
+                            <button class="carousel-next">&#10095;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="news">
+            <h2>Lab News</h2>
+            <ul>
+                <li><strong>February 2025</strong>: Dr. Fu was selected for the 2024 Stanford Global Top 2% Scientists list.</li>
+                <li><strong>January 2025</strong>: 3 papers accepted to ICLR25.</li>
+                <li><strong>January 2025</strong>: Dr. Fu was elected as AAAI Fellow.</li>
+                <li><strong>June 2024</strong>: 1 paper accepted to NeurIPS24, WWW24, EMNLP24.</li>
+                <li><strong>March 2024</strong>: Dr. Fu was elected as AIMBE Fellow.</li>
+                <li><strong>February 2024</strong>: 5 papers accepted to CVPR24.</li>
+                <li><strong>January 2024</strong>: Dr. Fu received the 2024 IEEE Edward J. McCluskey Technical Achievement Award.</li>
+                <li><strong>January 2024</strong>: 2 papers accepted to ICLR24.</li>
+            </ul>
+        </section>
+    </main>
+    <!-- School Footer -->
+    <footer>
+        <span class="school-title">The Chinese University of Hong Kong, Shenzhen</span>
+        <div class="school-colleges">
+            <a href="https://sse.cuhk.edu.cn/">Science and Engineering</a>
+            <a href="https://sme.cuhk.edu.cn/">Management and Economics</a>
+            <a href="https://sds.cuhk.edu.cn/">Data Science</a>
+            <a href="https://lhes.cuhk.edu.cn/">Life and Health Sciences</a>
+            <a href="https://hss.cuhk.edu.cn/">Humanities and Social Sciences</a>
+            <a href="https://mus.cuhk.edu.cn/">Music</a>
+            <a href="https://med.cuhk.edu.cn/">Medicine</a>
+            <a href="https://sia.cuhk.edu.cn/">Artificial Intelligence</a>
+        </div>
+        <span class="school-copyright">&copy; 2024 T-lab, The Chinese University of Hong Kong, Shenzhen. All rights reserved.</span>
+    </footer>
+    <script>
+// 简单轮播图JS
+const slides = document.querySelectorAll('.carousel-slide');
+const prevBtn = document.querySelector('.carousel-prev');
+const nextBtn = document.querySelector('.carousel-next');
+let current = 0;
+function showSlide(idx) {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+}
+prevBtn.onclick = () => { current = (current - 1 + slides.length) % slides.length; showSlide(current); };
+nextBtn.onclick = () => { current = (current + 1) % slides.length; showSlide(current); };
+setInterval(() => { current = (current + 1) % slides.length; showSlide(current); }, 4000);
+</script>
+</body>
+</html> 

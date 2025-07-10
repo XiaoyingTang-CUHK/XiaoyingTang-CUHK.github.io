@@ -1,0 +1,1045 @@
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: #C8102E;
+    color: #fff;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* 顶部导航栏仿照fulab.sites.northeastern.edu */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0 2.5rem 0 2.5rem;
+    height: 56px;
+    background: #fff;
+    box-shadow: none;
+    border-bottom: 1px solid #eee;
+}
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #222;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    margin-right: 2rem;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+.nav-links li a {
+    color: #222;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    transition: color 0.2s, text-decoration 0.2s;
+    font-weight: 400;
+}
+.nav-links li a:hover {
+    color: #A4804A;
+    text-decoration: underline;
+}
+
+/* 语言切换按钮无背景、无边框、无圆角，仅文字 */
+.lang-btn {
+    background: none !important;
+    color: #222 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    padding: 0 !important;
+    margin-left: 0.7rem;
+    box-shadow: none !important;
+    text-decoration: none;
+    transition: color 0.2s, text-decoration 0.2s;
+}
+.lang-btn:hover {
+    color: #A4804A !important;
+    text-decoration: underline !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* 研究页面样式 */
+.research-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2.2rem;
+    flex-wrap: wrap;
+    margin: 2rem 0 0 0;
+}
+.research-item {
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #C8102E;
+    padding: 2rem 1.7rem 1.7rem 1.7rem;
+    flex: 1 1 320px;
+    max-width: 350px;
+    min-width: 260px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+.research-item:hover {
+    box-shadow: 0 4px 24px rgba(200,16,46,0.10);
+}
+.research-item h3 {
+    color: #C8102E;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.1rem;
+    text-align: center;
+}
+.research-item p {
+    color: #444;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    text-align: center;
+}
+@media (max-width: 1100px) {
+    .research-grid {
+        gap: 1.2rem;
+    }
+    .research-item {
+        max-width: 100%;
+        min-width: 220px;
+    }
+}
+@media (max-width: 800px) {
+    .research-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+    .research-item {
+        width: 95%;
+        max-width: 500px;
+    }
+}
+
+.applications ul {
+    padding-left: 1.5rem;
+}
+
+.applications li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 2rem 2.5rem;
+    flex: 1;
+}
+
+.welcome h1 {
+    color: #C8102E;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.welcome p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+}
+
+.news h2 {
+    color: #C8102E;
+    margin-top: 2rem;
+}
+
+.news ul {
+    padding-left: 1.2rem;
+}
+
+.news li {
+    margin-bottom: 0.7rem;
+    font-size: 1.05rem;
+}
+
+footer {
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0 0.5rem 0;
+    font-size: 1rem;
+    margin-bottom: 0;
+    width: 100vw;
+    min-width: 100vw;
+    box-sizing: border-box;
+    border-radius: 0 !important;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+footer .school-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    width: 100%;
+}
+footer .school-colleges {
+    color: #fff;
+    font-size: 1.15rem !important;
+    margin: 1.2rem 0 1.2rem 0;
+    text-align: center;
+    letter-spacing: 0.2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+    line-height: 2.2;
+    width: 100%;
+}
+footer .school-colleges a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 0.2rem;
+    transition: color 0.2s;
+    font-family: 'Georgia', serif;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+}
+footer .school-colleges a:hover {
+    color: #A4804A;
+    text-decoration: underline;
+}
+footer .school-copyright {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.65rem !important;
+    color: #ccc !important;
+    opacity: 0.85;
+    margin-top: 1.2rem;
+    margin-bottom: 0.7rem;
+    line-height: 2.2;
+}
+
+/* 上联：学校名称栏 */
+.school-header {
+    display: flex;
+    align-items: center;
+    background: #000;
+    color: #fff;
+    height: 48px;
+    padding: 0;
+    border-radius: 0;
+}
+.school-logo {
+    background: #C8102E;
+    color: #fff;
+    font-family: serif;
+    font-size: 2rem;
+    font-weight: bold;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    margin-left: 0;
+    margin-right: 0.7rem;
+}
+.school-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+/* 下联：学校版权栏 */
+.school-footer {
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 2rem 0.5rem 2rem;
+    font-size: 1rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
+.school-footer .school-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+}
+.school-footer .school-copyright {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #fff;
+    opacity: 0.85;
+    margin-top: 0.7rem;
+    margin-bottom: 0.2rem;
+}
+
+.lab-copyright {
+    font-size: 0.85rem;
+    color: #fff;
+    text-align: center;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+html, body {
+    width: 100vw;
+    min-width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.school-footer, footer {
+    width: 100vw;
+    min-width: 100vw;
+    box-sizing: border-box;
+    margin: 0 !important;
+    left: 0;
+    right: 0;
+    position: relative;
+    border-radius: 0 !important;
+}
+
+.school-colleges {
+    color: #fff;
+    font-size: 0.95rem;
+    margin: 0.7rem 0 0.2rem 0;
+    text-align: center;
+    letter-spacing: 0.2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+    line-height: 1.7;
+}
+.school-colleges a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 0.2rem;
+    transition: color 0.2s;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+}
+.school-colleges a:hover {
+    color: #A4804A;
+    text-decoration: underline;
+}
+@media (max-width: 700px) {
+    .school-colleges {
+        font-size: 0.92rem;
+        gap: 0.5rem;
+        flex-direction: column;
+        text-align: center;
+        line-height: 1.5;
+    }
+    .school-colleges a {
+        font-size: 0.92rem;
+    }
+}
+
+/* 响应式优化：底部院系链接自动换行、居中、间距适中 */
+@media (max-width: 900px) {
+    .school-colleges {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.7rem;
+        font-size: 1.05rem !important;
+        padding: 0 0.5rem;
+    }
+    footer {
+        align-items: center;
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+        width: 100vw;
+        min-width: 100vw;
+        box-sizing: border-box;
+    }
+    footer .school-title, footer .school-colleges, footer .school-copyright {
+        text-align: center;
+        width: 100%;
+    }
+    .school-footer .school-title {
+        text-align: center;
+        width: 100%;
+    }
+    footer .school-colleges a {
+        font-size: 1.05rem !important;
+    }
+    footer .school-copyright {
+        font-size: 0.6rem !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 0.5rem 0.5rem;
+    }
+    .logo {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+    }
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        font-size: 1rem;
+    }
+    main {
+        padding: 1rem 0.5rem;
+        margin: 1rem 0.2rem;
+    }
+    .welcome h1 {
+        font-size: 1.3rem;
+    }
+    .school-header {
+        font-size: 1rem;
+        height: 38px;
+    }
+    .school-logo {
+        font-size: 1.2rem;
+        width: 38px;
+        height: 38px;
+    }
+    .school-title {
+        font-size: 1.1rem;
+    }
+    .school-footer {
+        font-size: 0.9rem;
+    }
+    .school-footer .school-title {
+        font-size: 1rem;
+    }
+    .school-colleges {
+        font-size: 0.85rem;
+        gap: 0.5rem;
+    }
+    .lang-btn {
+        padding: 0.3rem 0.7rem !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 500px) {
+    footer, .school-header {
+        padding-left: 0;
+        padding-right: 0;
+        width: 100vw;
+        min-width: 100vw;
+        box-sizing: border-box;
+    }
+    footer .school-title {
+        font-size: 1rem !important;
+    }
+    footer .school-colleges {
+        font-size: 0.95rem !important;
+    }
+    footer .school-colleges a {
+        font-size: 0.95rem !important;
+    }
+    footer .school-copyright {
+        font-size: 0.52rem !important;
+    }
+    .school-colleges {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    .school-footer .school-title {
+        font-size: 0.95rem;
+    }
+    .school-footer {
+        font-size: 0.8rem;
+    }
+    .nav-links {
+        font-size: 0.9rem;
+    }
+    .logo {
+        font-size: 1.1rem;
+    }
+    main {
+        padding: 0.5rem 0.1rem;
+    }
+}
+
+/* 研究页面卡片在小屏幕下单列显示 */
+@media (max-width: 700px) {
+    .research-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+} 
+
+/* Publications 页面样式 */
+.pub-section {
+    margin-top: 2rem;
+}
+.pub-section h2 {
+    color: #C8102E;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.2rem;
+}
+.pub-section h3 {
+    color: #1a237e;
+    font-size: 1.35rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.pub-item {
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    padding: 1.1rem 1.3rem 1.1rem 1.3rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    border-left: 4px solid #C8102E;
+}
+.pub-item b {
+    font-size: 1.08rem;
+    color: #222;
+}
+.pub-authors {
+    color: #555;
+    font-size: 1rem;
+    margin: 0.2rem 0 0.1rem 0;
+    display: block;
+}
+.pub-venue {
+    color: #A4804A;
+    font-size: 1rem;
+    font-style: italic;
+    margin-right: 0.7rem;
+}
+.pub-link {
+    color: #C8102E;
+    font-weight: 600;
+    margin-left: 0.7rem;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+.pub-link:hover {
+    color: #A4804A;
+    text-decoration: underline;
+} 
+
+.pub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.2rem 2.5rem;
+    margin-bottom: 1.5rem;
+}
+.pub-item {
+    display: flex;
+    align-items: flex-start;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 0;
+    padding: 1.1rem 1.3rem 1.1rem 1.3rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    border-left: 4px solid #C8102E;
+    min-height: 120px;
+}
+.pub-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    margin-right: 1.2rem;
+    flex-shrink: 0;
+    display: block;
+}
+.pub-info {
+    flex: 1;
+    min-width: 0;
+}
+@media (max-width: 900px) {
+    .pub-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem 0;
+    }
+    .pub-img {
+        width: 70px;
+        height: 70px;
+        margin-right: 0.8rem;
+    }
+    .pub-item {
+        padding: 0.8rem 0.7rem 0.8rem 0.7rem;
+    }
+} 
+
+.pub-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+.pub-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+.pub-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 0.2rem;
+}
+@media (max-width: 900px) {
+    .pub-row {
+        grid-template-columns: 1fr;
+        gap: 1.2rem 0;
+    }
+    .pub-rows {
+        gap: 1.2rem;
+    }
+} 
+
+.team-section {
+    margin: 2.5rem 0 2.5rem 0;
+}
+.team-section h2 {
+    color: #C8102E;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    margin-top: 0;
+    letter-spacing: 0.5px;
+}
+.team-director {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.2rem;
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 2.2rem 2.2rem 2.2rem 2.2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+}
+.team-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #C8102E;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    margin-bottom: 0.7rem;
+}
+.team-info {
+    flex: 1;
+    min-width: 200px;
+}
+.team-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #C8102E;
+    margin-bottom: 0.3rem;
+}
+.team-title {
+    font-size: 1.08rem;
+    color: #333;
+    margin-bottom: 0.7rem;
+}
+.team-bio {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.7;
+}
+.team-bio a {
+    color: #C8102E;
+    text-decoration: underline;
+}
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.2rem;
+    justify-content: flex-start;
+}
+.team-card {
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    transition: box-shadow 0.2s;
+}
+.team-card:hover {
+    box-shadow: 0 4px 24px rgba(200,16,46,0.10);
+}
+.team-role {
+    font-size: 1.05rem;
+    color: #1a237e;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+.team-desc {
+    font-size: 0.98rem;
+    color: #555;
+    text-align: center;
+}
+@media (max-width: 900px) {
+    .team-director {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+    }
+    .team-grid {
+        gap: 1.2rem;
+        justify-content: center;
+    }
+    .team-card {
+        width: 90%;
+        max-width: 350px;
+    }
+} 
+
+.team-director .team-photo {
+    width: 360px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 36px;
+    border: 2px solid #C8102E;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    margin-bottom: 0.7rem;
+} 
+
+.team-meta {
+    margin-top: 0.7rem;
+    font-size: 0.98rem;
+    color: #444;
+    text-align: center;
+    line-height: 1.7;
+}
+.team-homepage {
+    color: #C8102E;
+    text-decoration: underline;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    display: inline-block;
+}
+.team-homepage:hover {
+    color: #A4804A;
+}
+
+.contact-section {
+    display: flex;
+    gap: 2.5rem;
+    margin: 2.5rem 0 2.5rem 0;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.contact-info {
+    flex: 1 1 320px;
+    max-width: 800px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 1.2rem 2rem 1.2rem 2rem;
+    min-width: 260px;
+    height: auto;
+}
+.contact-info h2 {
+    color: #C8102E;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.1rem;
+}
+.contact-info p {
+    color: #444;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+}
+.contact-map {
+    flex: 2 1 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 320px;
+}
+.contact-map img {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 180px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-top: 0.5rem;
+    object-fit: contain;
+}
+@media (max-width: 900px) {
+    .contact-section {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+    }
+    .contact-info, .contact-map {
+        max-width: 95vw;
+        min-width: 0;
+        width: 100%;
+    }
+    .contact-map img {
+        max-width: 98vw;
+    }
+} 
+
+.home-flex {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+.home-intro {
+    flex: 1 1 340px;
+    min-width: 260px;
+    max-width: 600px;
+}
+.home-carousel {
+    flex: 1 1 340px;
+    min-width: 260px;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    min-width: 220px;
+    height: 260px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carousel-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0; top: 0;
+    align-items: center;
+    justify-content: center;
+}
+.carousel-slide.active {
+    display: flex;
+}
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+.carousel-controls {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.carousel-controls button {
+    background: rgba(200,16,46,0.8);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.2s;
+}
+.carousel-controls button:hover {
+    background: #A4804A;
+}
+@media (max-width: 900px) {
+    .home-flex {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+    }
+    .home-intro, .home-carousel {
+        max-width: 100vw;
+        min-width: 0;
+        width: 100%;
+        padding: 0 0.5rem;
+    }
+    main {
+        max-width: 100vw;
+        padding: 1rem 0.5rem;
+    }
+    .research-item {
+        width: 100% !important;
+        max-width: 100vw;
+    }
+    .carousel {
+        max-width: 98vw;
+        height: 180px;
+    }
+} 
+
+/* 顶栏学校全称字体缩小 */
+.school-header .school-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.18rem !important;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+    text-align: left;
+    width: 100%;
+}
+/* 底栏学校全称字体正常 */
+footer .school-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem !important;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    width: 100%;
+} 
+
+.contact-map img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 98vw;
+} 
+
+/* 联系我们图片优化 */
+.contact-map img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: auto;
+    padding: 0;
+}
+
+/* team页面Lab Director图片自适应 */
+.team-director .team-photo {
+    max-width: 120px;
+    width: 40vw;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem auto;
+}
+@media (max-width: 700px) {
+    .team-director .team-photo {
+        max-width: 80px;
+        width: 30vw;
+    }
+}
+
+/* research页面移动端内容100%显示 */
+@media (max-width: 900px) {
+    .research-item {
+        width: 100% !important;
+        max-width: 100vw;
+        min-width: 0;
+        box-sizing: border-box;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+} 
+
+/* 优化Lab Director图片为正方形且宽度接近卡片，移动端缩小，桌面端最大320px */
+.team-director .team-photo {
+    width: 90%;
+    max-width: 320px;
+    aspect-ratio: 1/1;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem auto;
+    object-fit: cover;
+}
+@media (max-width: 700px) {
+    .team-director .team-photo {
+        width: 85vw;
+        max-width: 85vw;
+    }
+}
+
+/* 联系我们页面文字卡片移动端宽度优化 */
+@media (max-width: 900px) {
+    .contact-info {
+        width: 98vw;
+        max-width: 98vw;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 1rem 0.5rem;
+    }
+} 
+
+@media (max-width: 600px) {
+  .school-header .school-title {
+    font-size: 0.95rem !important;
+    line-height: 1.2;
+    padding-right: 0.2rem;
+    padding-left: 0.2rem;
+    word-break: break-all;
+    white-space: normal;
+  }
+  .school-header {
+    padding-left: 0;
+    padding-right: 0.2rem;
+  }
+} 
