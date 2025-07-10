@@ -1002,19 +1002,22 @@ footer .school-title {
 } 
 
 /* 优化Lab Director图片为正方形且宽度接近卡片，移动端缩小，桌面端最大320px */
+/* Lab Director图片边框改为长方形，高度自适应 */
 .team-director .team-photo {
     width: 90%;
     max-width: 320px;
-    aspect-ratio: 1/1;
     height: auto;
+    max-height: 420px;
     display: block;
     margin: 0 auto 1rem auto;
     object-fit: cover;
+    border-radius: 24px;
 }
 @media (max-width: 700px) {
     .team-director .team-photo {
         width: 85vw;
         max-width: 85vw;
+        max-height: 60vw;
     }
 }
 
