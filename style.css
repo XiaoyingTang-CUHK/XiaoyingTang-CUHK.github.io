@@ -1322,3 +1322,17 @@ main {
     object-fit: contain;
     border-radius: 24px;
 } 
+
+@media (max-width: 700px) {
+    .news-list li {
+        display: block;
+        line-height: 1.8;
+        margin-bottom: 0.7em;
+    }
+    .news-date {
+        display: inline-block;
+        min-width: 5.5em;
+        margin-right: 0.5em;
+        text-align: right;
+    }
+} 
