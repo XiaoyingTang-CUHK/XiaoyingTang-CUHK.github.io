@@ -700,6 +700,9 @@ html, body {
     padding: 2.2rem 2.2rem 2.2rem 2.2rem;
     margin-bottom: 2.5rem;
     flex-wrap: wrap;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .team-photo {
     width: 120px;
@@ -739,7 +742,7 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     gap: 2.2rem;
-    justify-content: flex-start;
+    justify-content: center;
 }
 .team-card {
     background: #f8f9fa;
@@ -1285,5 +1288,17 @@ main {
     .research-row:last-child .research-item.wide {
         width: 95%;
         max-width: 500px;
+    }
+} 
+
+/* 统一中英文团队页面卡片宽度 */
+.team-card {
+    width: 280px;
+    max-width: 280px;
+}
+@media (max-width: 900px) {
+    .team-card {
+        width: 90%;
+        max-width: 350px;
     }
 } 
