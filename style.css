@@ -25,7 +25,7 @@ header {
     justify-content: space-between;
     max-width: 100vw;
     margin: 0;
-    padding: 0 2.5rem 0 2.5rem;
+    padding: 0 1.5rem 0 1.5rem;
     height: 56px;
     background: #fff;
     box-shadow: none;
@@ -86,26 +86,27 @@ header {
 .research-grid {
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    gap: 2.2rem;
-    flex-wrap: nowrap; /* 强制不换行 */
+    align-items: stretch; /* 关键：让子项等高 */
+    gap: 1.5rem;
+    flex-wrap: nowrap;
     margin: 2rem 0 0 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 .research-item {
     background: #f8f9fa;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     border-left: 4px solid #C8102E;
-    padding: 2rem 1.7rem 1.7rem 1.7rem;
+    padding: 2rem 1.3rem 1.7rem 1.3rem;
     flex: 1 1 0;
-    max-width: 350px;
-    min-width: 260px;
+    max-width: 480px;
+    min-width: 320px;
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
     transition: box-shadow 0.2s;
-    height: 100%; /* 高度自适应父容器 */
+    box-sizing: border-box;
 }
 .research-item:hover {
     box-shadow: 0 4px 24px rgba(200,16,46,0.10);
@@ -125,19 +126,19 @@ header {
 }
 @media (max-width: 1100px) {
     .research-grid {
-        gap: 1.2rem;
-        flex-wrap: wrap; /* 小屏幕允许换行 */
+        gap: 1rem;
+        flex-wrap: wrap;
     }
     .research-item {
         max-width: 100%;
-        min-width: 220px;
+        min-width: 200px;
     }
 }
 @media (max-width: 800px) {
     .research-grid {
         flex-direction: column;
         align-items: center;
-        gap: 1.2rem;
+        gap: 1rem;
         flex-wrap: wrap;
     }
     .research-item {
@@ -156,12 +157,12 @@ header {
 }
 
 main {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 2rem auto;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    padding: 2rem 2.5rem;
+    padding: 2rem 1.5rem;
     flex: 1;
 }
 
@@ -215,6 +216,10 @@ main {
 }
 .news-journal {
     font-weight: bold;
+}
+.news-list, .news-list li, .news-journal {
+    white-space: normal !important;
+    word-break: break-all;
 }
 
 footer {
@@ -456,8 +461,8 @@ html, body {
         font-size: 1rem;
     }
     main {
-        padding: 1rem 0.5rem;
-        margin: 1rem 0.2rem;
+        padding: 1rem 0.3rem;
+        margin: 1rem 0.1rem;
     }
     .welcome h1 {
         font-size: 1.3rem;
@@ -528,7 +533,7 @@ html, body {
         font-size: 1.1rem;
     }
     main {
-        padding: 0.5rem 0.1rem;
+        padding: 0.5rem 0.05rem;
     }
 }
 
@@ -600,7 +605,7 @@ html, body {
 .pub-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.2rem 2.5rem;
+    gap: 2.2rem 2rem;
     margin-bottom: 1.5rem;
 }
 .pub-item {
@@ -738,7 +743,7 @@ html, body {
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     padding: 2rem 1.5rem 1.5rem 1.5rem;
-    width: 260px;
+    width: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -806,21 +811,17 @@ html, body {
 
 .contact-section {
     display: flex;
-    gap: 2.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
     margin: 2.5rem 0 2.5rem 0;
-    align-items: flex-start;
-    flex-wrap: wrap;
     justify-content: center;
 }
-.contact-info {
-    flex: 1 1 320px;
+.contact-info, .contact-map {
+    width: 100%;
     max-width: 800px;
-    background: #f8f9fa;
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    padding: 1.2rem 2rem 1.2rem 2rem;
-    min-width: 260px;
-    height: auto;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 .contact-info h2 {
     color: #C8102E;
@@ -833,13 +834,6 @@ html, body {
     font-size: 1.08rem;
     line-height: 1.7;
     margin-bottom: 1.1rem;
-}
-.contact-map {
-    flex: 2 1 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 320px;
 }
 .contact-map img {
     width: 100%;
@@ -868,7 +862,7 @@ html, body {
 
 .home-flex {
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
@@ -958,7 +952,7 @@ html, body {
     }
     main {
         max-width: 100vw;
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.3rem;
     }
     .research-item {
         width: 100% !important;
@@ -1087,4 +1081,91 @@ footer .school-title {
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+} 
+
+.site-ref {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-top: 0.5em;
+    text-align: center;
+}
+.site-ref a {
+    color: #aaa;
+    text-decoration: underline;
+} 
+
+.footer-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin-top: 0.5em;
+}
+.footer-row .school-copyright,
+.footer-row .site-ref {
+    font-size: 0.95em;
+    color: #888;
+    text-align: center;
+    font-weight: 400;
+}
+.footer-row .site-ref a {
+    color: #888;
+    text-decoration: underline;
+} 
+
+.research-grid .research-item:nth-child(1),
+.research-grid .research-item:nth-child(2) {
+} 
+
+/* 研究页面上2下1卡片结构样式 */
+.research-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+.research-row {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: center;
+}
+.research-row:first-child .research-item {
+    flex: 1 1 0;
+    max-width: 480px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+.research-row:last-child .research-item.wide {
+    width: calc(2 * 480px + 1.5rem);
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 1100px) {
+    .research-row:first-child .research-item {
+        max-width: 100%;
+        min-width: 200px;
+    }
+    .research-row:last-child .research-item.wide {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+@media (max-width: 800px) {
+    .research-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .research-row:first-child .research-item,
+    .research-row:last-child .research-item.wide {
+        width: 95%;
+        max-width: 500px;
+    }
 } 
