@@ -167,7 +167,7 @@ main {
 }
 
 .welcome h1 {
-    color: #C8102E;
+    color: #000;
     font-size: 2.2rem;
     margin-bottom: 1rem;
 }
@@ -466,6 +466,7 @@ html, body {
     }
     .welcome h1 {
         font-size: 1.3rem;
+        color: #000;
     }
     .school-header {
         font-size: 1rem;
@@ -1074,17 +1075,6 @@ footer .school-title {
   }
 } 
 
-.research-item.wide {
-    max-width: 900px;
-    min-width: 400px;
-    width: 100%;
-    margin: 2.2rem auto 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-} 
-
 .site-ref {
     font-size: 0.85em;
     color: #aaa;
@@ -1149,6 +1139,132 @@ footer .school-title {
     display: flex;
     flex-direction: column;
 }
+@media (max-width: 1100px) {
+    .research-row:first-child .research-item {
+        max-width: 100%;
+        min-width: 200px;
+    }
+    .research-row:last-child .research-item.wide {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+@media (max-width: 800px) {
+    .research-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .research-row:first-child .research-item,
+    .research-row:last-child .research-item.wide {
+        width: 95%;
+        max-width: 500px;
+    }
+} 
+
+/* 统一中英文research页面样式 */
+
+/* 顶栏高度、导航栏字体、间距与中文页面一致 */
+.navbar {
+    height: 56px;
+    padding: 0 1.5rem 0 1.5rem;
+}
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #222;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    margin-right: 2rem;
+}
+.nav-links {
+    gap: 2.2rem;
+    font-size: 1.25rem;
+}
+.nav-links li a {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+/* main内容区宽度、边界与中文页面一致 */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 2rem 1.5rem;
+    flex: 1;
+}
+
+/* research卡片区域与中文页面一致 */
+.research-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+.research-row {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: center;
+}
+.research-row:first-child .research-item {
+    flex: 1 1 0;
+    max-width: 480px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+.research-row:last-child .research-item.wide {
+    width: calc(2 * 480px + 1.5rem);
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.research-item {
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #C8102E;
+    padding: 2rem 1.3rem 1.7rem 1.3rem;
+    flex: 1 1 0;
+    max-width: 480px;
+    min-width: 320px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+    box-sizing: border-box;
+}
+.research-item.wide {
+    max-width: 900px;
+    min-width: 400px;
+    width: 100%;
+    margin: 2.2rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+.research-item h3 {
+    color: #C8102E;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.1rem;
+    text-align: center;
+}
+.research-item p {
+    color: #444;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    text-align: center;
+}
+
 @media (max-width: 1100px) {
     .research-row:first-child .research-item {
         max-width: 100%;
