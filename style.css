@@ -886,7 +886,7 @@ html, body {
 .home-flex {
     display: flex;
     gap: 2rem;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 2.5rem;
@@ -897,10 +897,8 @@ html, body {
     max-width: 600px;
 }
 .home-carousel {
-    height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 400px;
+    text-align: center;
 }
 .carousel {
     position: relative;
