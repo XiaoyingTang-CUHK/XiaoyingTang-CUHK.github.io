@@ -1336,4 +1336,10 @@ main {
         margin-right: 0.5em;
         text-align: right;
     }
+    .welcome, .news {
+        width: 90% !important;
+        box-sizing: border-box;
+        padding-left: 0;
+        padding-right: 0;
+    }
 } 
