@@ -1,0 +1,2263 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+    const network = require('./network.js');
+    const baseConf = require('./config.js');
+    
+    //截取字符串方法
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+    
+    var articleid;
+    var pagenum = "1";
+    var length;
+    var article_type = $("#article_type").val();
+    var siteid = $("#siteid").val();
+    var siteurl = "https://apix.scms.sztv.com.cn";
+    var logo = "http://static.scms.sztv.com.cn/ysz/upload/Image/mrtp/2016/07/24/1_9581d897a14345d997684b25b8ea5bc3.jpg";
+    var summary = "深圳人自己的APP";
+    var author = $("#author").val();
+    var referName = $("#referName").val();
+    var title = "第一现场-文章赞赏" + author;
+    var article = $("#article").val();
+    var adduser = $("#adduser").val();
+    var username = "游客", avatar = "http://static.scms.sztv.com.cn/zbgat/public_live/imgs/noavatar_middle.gif";
+    var userid = uuid();
+    var follow = true;
+    var accessToken = "123456789";
+    var sign = "1221212";
+    var tenantId = "ysz";
+    var timeStamp = (new Date()).valueOf();
+    var relaId = article;
+    var zanid;
+    var zan = true;
+    var share_logo = $("#logo").val();
+    var share_title = $("#title").val() + " - 第一现场";
+    var share_summary = $("#summary").val();
+    var livemoreflag = false,
+        livePageNum = 1,
+        commentmoreflag = false,
+        commentPageNum = 1,
+        livePageSize = 10;
+    
+    //微信判断
+    function isWeiXin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //手机端判断
+    function isPhone() {
+        if (/Android|webOS|iPhone|iPod|BlackBerry|iPad/i.test(navigator.userAgent)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //设置cookie
+    function setCookie(c_name, value, expiredays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + expiredays);
+        document.cookie = c_name + "=" + escape(value) +
+            ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());
+    }
+    //设置cookie全局
+    function setCookieAll(c_name, value, expiredays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + expiredays);
+        document.cookie = c_name + "=" + escape(value) +
+            ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=/";
+    }
+    //获取cookie
+    function getCookie(c_name) {
+        if (document.cookie.length > 0) {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start, c_end));
+            }
+        }
+        return "";
+    }
+    //cookie值验证
+    function checkCookie() {
+        var userId = getCookie("userId");
+        var avatar = getCookie("avatar");
+        var nickname = getCookie("nickname");
+        if (typeof (userId) == undefined || typeof (avatar) == undefined || typeof (nickname) == undefined) {
+            return false;
+        }
+        if (typeof (userId) == 'undefined' || typeof (avatar) == 'undefined' || typeof (nickname) == 'undefined') {
+            return false;
+        }
+        if (userId == '' || avatar == '' || nickname == '') {
+            return false;
+        }
+        return true;
+    }
+    
+    //随机生成用户id
+    var User = uuid();
+    function uuid() {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+    
+        s[8] = s[13] = s[18] = s[23] = "-";
+    
+        var uuid = s.join("");
+        return uuid;
+    }
+    var Request = new Object();
+    Request = GetRequest();
+    articleid = Request['articleid'];
+    var code = Request['code'];
+    var from = Request['from'];
+    var android1 = Request['android'];
+    var ios1 = Request['ios'];
+    var isapp = Request['isApp'];
+    var isZs = Request['isZs'];
+    var uid = Request['uid'];
+    var hisUserId = Request['userid'];
+    var windowURL = window.location.href;
+    var keyword = $(".rename").html();
+    var U_token;
+    var articleDetailData;
+    var ysz_jssdk;
+    //article_wx();
+    pricelist();
+    //editorInfo();
+    newcomment();
+    hotcomment();
+    function sendLoginToken(U_token) {
+        getusermsg(U_token);
+    }
+    $(document).ready(function () {
+        if (isWeiXin()) {
+            wx_share(windowURL);
+        }
+        if (isZs || getCookie("isZs")) {
+            setCookieAll("isZs", true, 30);
+            $(".header").hide();
+            $(".footer").hide();
+            $(".comment_more").hide();
+            $(".article-app-tips").hide();
+        }
+        if (isapp || checkuser()) {
+            if (from == "face") {
+                $('.backButton').show();
+            }
+            $(".header").hide();
+            $(".footer").hide();
+            $(".comment_more").hide();
+            $(".article-app-tips").hide();
+            appurl();
+            window.onload = function () {
+                try {
+                    var u = navigator.userAgent;
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                    var share_url = (window.location.href).split("?")[0];
+                    if (isiOS) {
+                        $(".btn_div1").hide();
+                        $(".code").hide();
+    
+                        window.webkit.messageHandlers.returnShareInfo.postMessage(share_title, share_summary, share_logo, share_url);
+                    } else {
+                        window.callNative.returnShareInfo(share_title, share_summary, share_logo, share_url);
+                    }
+                } catch (e) {
+                    console.log('e', e);
+    
+                }
+                getArticle();
+            };
+        } else {
+            window.onload = function () {
+                appUser();
+                getArticle();
+                if (from == "face") {
+                    $('.backButton').show();
+                }
+                if (checkCookie()) {
+                    username = getCookie("nickname");
+                    avatar = getCookie("avatar");
+                    userid = getCookie("userId");
+                    $("#avatar").val(avatar);
+                    $("#nickname").val(username);
+                    $("#openid").val(userid);
+                    console.log(userid);
+                    getFollow(userid);
+                    getArticle();
+                } else if (code) {
+                    wcode();
+                }
+            };
+    
+        }
+        // ysz_track 阅读
+        try {
+            window.YSZTrack && window.YSZTrack.doTrack({
+                article_id: $('#article').val() || '',
+                event_types: window.YSZTrack.eventTypes.openArticle || ''
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    });
+    
+    // 初始化配置
+    function initjssdkData() {
+        ysz_jssdk = new HAIHE_JSSDK_FUC({
+            tenantId: tenantId,
+            url: siteurl, // 存储地址
+            data: {
+                articleId: articleDetailData.id, // 文章id
+                articleTitle: articleDetailData.title, // 文章标题
+                articleUrl: articleDetailData.url, //链接信息
+                catalogId: articleDetailData.catalogid, // 栏目id
+                atype: articleDetailData.type, // 文章类型
+            },
+            isOpenCollect: false, // 是否开启采集，不开启传false，默认true开启
+            isOpenPageStartEvent: true, // 是否开启打开文章时自动触发文章开启事件，不开启传false，默认true开启
+            isOpenPageCloseEvent: true, // 是否开启关闭文章时开启文章关闭事件，不开启传false，默认true开启
+        });
+    }
+    
+    
+    
+    //打赏界面出现
+    function dian() {
+        $(".layer").show();
+        $(".layer_content").show();
+    };
+    
+    //获取打赏金额
+    $(function () {
+        $(".layer_button").click(function () {
+            var price = $(".layer_active li.active").text();
+            var myprice = $("input[name='myprice']").val();
+            if ((myprice * 1) > 0) {
+                price = myprice;
+            } else {
+                prices = price.split('元');
+                price = prices[0];
+                if (price == '') {
+                    alert('请选择金额！'); return;
+                }
+            }
+            if (!isWeiXin()) {
+                price = price * 100;
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if (isiOS) {
+                    console.info('IOS');
+                    getAppPayInfo(price);
+                } else {
+                    console.info('ANDROID');
+                    window.callNative.getAppPayInfo(price);
+                }
+    
+                $(".layer").hide();
+                $(".layer_content").hide();
+            } else {
+                shang(price);
+                $(".layer").hide();
+                $(".layer_content").hide();
+    
+            }
+    
+        });
+        var ac_len = $(".layer_active li").length;
+    
+        switch (ac_len) {
+            case 2: $(".layer_active").css("padding", "10px 0"); $(".layer_active li").css("margin", "4px 26px"); break;
+            case 3: $(".layer_active").css("padding", "10px 0"); $(".layer_active li").css("margin", "4px "); break;
+            case 4: $(".layer_active li").css("margin", "4px 26px"); break;
+            case 5: $(".layer_active li:nth-child(1)").css("margin", "4px 26px"); $(".layer_active li:nth-child(2)").css("margin", "4px 26px"); break;
+        };
+    });
+    
+    //关闭打赏窗口
+    $(".layer").click(function () {
+        $(".layer").hide();
+        $(".layer_content").hide();
+        $(".layer_active li.active").removeClass('active');
+    });
+    
+    //打赏金额选中效果
+    $(".layer_active li").click(function () {
+        $(this).addClass('active').siblings('').removeClass('active');
+    });
+    
+    //点击金额输入框，固定金额选中消失
+    $(".layer_input input").focus(function () {
+        $(".layer_active li.active").removeClass('active');
+    });
+    
+    //下载页浮窗
+    $(".share-mask").click(function () {
+        $(this).addClass("hide");
+    });
+    
+    //打赏
+    function shang(price) {
+        var amout = price * 100;
+        var avatar = $("#avatar").val();
+        var nickname = $("#nickname").val();
+        var userid = $("#openid").val();
+        const url = siteurl + "/api/reward/getWXOrderInfo";
+        const type = "GET";
+        const data = {
+            openid: userid,
+            title: title,
+            amount: amout,
+        };
+        const dataType = "jsonp";
+        const succallback = function (data) {
+            try {
+                var data = data;
+                var title = data.title;
+                var amount = data.amount;
+                var out_trade_no = data.out_trade_no;
+                var sign = data.sign;
+                var openid = data.openid;
+                var pay_type = "wx";
+                var data1 = { title: title, amount: amount, out_trade_no: out_trade_no, sign: sign, openid: openid, instant_channel: pay_type };
+                BC.click(data1, {
+                    wxJsapiFinish: function (res) {
+                        //jsapi接口调用完成后
+                        if (res.err_msg == "get_brand_wcpay_request:ok") {
+                            var shu = "relaId=" + relaId + "&cashier=" + adduser + "&tenantId=" + tenantId + "&tradeUserId=" + openid + "&tradeAvatar=" + avatar + "&tenantId=" + article + "&orderNO=" + out_trade_no + "&tradeNickName=" + nickname + "&money=" + price + "&payStyle=1" + "&siteId=" + siteid;
+                            trade(shu);
+                        } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+    
+                        } else {
+                            //支付失败
+                            alert(res.err_msg);
+                        }
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        network.http(url, type, data, succallback, null, dataType);
+    }
+    
+    //微信打赏统计
+    function trade(shu) {
+        const url = siteurl + "/api/com/traderecords/add";
+        const type = "POST";
+        const succallback = function (data) {
+            try {
+                var msg = data.returnCode;
+                if (msg == "0000") {
+                    pricelist();
+                } else {
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+    
+        network.http(url, type, shu, succallback);
+    
+    }
+    
+    //微信打赏列表
+    function pricelist() {
+        const url = siteurl + "/api/com/traderecords/listUsers";
+        const type = "GET";
+        const data = {
+            relaId: relaId,
+            tenantId: tenantId,
+            page: '1',
+            pageSize: '27'
+        };
+        const succallback = function (data) {
+            try {
+                var msg = data.returnCode;
+                var length = data.returnData.total;
+                var data1 = data.returnData.listUsers;
+                var html = "";
+                if (msg == "0000") {
+                    $(".d_count").html(length);
+                    for (var j = 0; j < parseInt(length); j++) {
+                        var obj = data1[j];
+                        html += '<img src="' + obj.tradeAvatar + '" class="person_img">';
+                    }
+                    $(".person_div").html(html);
+                } else {
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        network.http(url, type, data, succallback);
+    
+    }
+    
+    //获取微信用户s
+    function wcode() {
+    
+        const url = siteurl + "/api/weixin/userinfo";
+        const type = "GET";
+        const data = {
+            code: code,
+            siteId: siteid,
+    
+        };
+        const succallback = function (data) {
+            try {
+                data = data.data;
+                avatar = data.headimgurl;
+                username = data.nickname;
+                userid = data.openid;
+                setCookie("nickname", username, 5);
+                setCookie("avatar", avatar, 5);
+                setCookie("userId", userid, 5);
+                $("#avatar").val(avatar);
+                $("#nickname").val(username);
+                $("#openid").val(userid);
+                var windowURL1 = window.location.href.split('?')[0];
+                console.log(userid);
+                getFollow(userid);
+                getArticle();
+    
+            } catch (e) { console.log(e); }
+        };
+        network.http(url, type, data, succallback);
+    
+    }
+    
+    //微信自定义分享
+    function wx_share(url2) {
+    
+        url3 = (window.location.href).split("?")[0];
+    
+        const url = siteurl + "/api/weixin/jstoken";
+        const type = "GET";
+        const data = {
+            url: url2,
+            siteId: siteid,
+    
+        };
+        const succallback = function (data) {
+            try {
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: data.appId, // 必填，公众号的唯一标识
+                    timestamp: data.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: data.noncestr, // 必填，生成签名的随机串
+                    signature: data.signature,// 必填，签名，见附录1
+                    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+                wx.ready(function () {
+                    wx.checkJsApi({
+                        jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"],
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    });
+                    wx.onMenuShareTimeline({
+                        title: share_title, // 分享标题
+                        link: url3,
+                        imgUrl: share_logo, // 分享图标
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            console.log("分享成功");
+                            // zmy_sdk 微信朋友圈分享统计
+                            window.ZMY_ShareArticle && ZMY_ShareArticle({
+                                article_id: $('#article').val() || '',
+                                platform: window.ZMY_PlatformType ? ZMY_PlatformType.Mobile || '' : '',
+                                user_id: userid || '',
+                                share_channel: window.ZMY_ShareChannel ? ZMY_ShareChannel.ChannelTimeLine || '' : ''
+                            })
+                            // ysz_track 微信朋友圈分享统计
+                            try {
+                                window.YSZTrack && window.YSZTrack.doTrack({
+                                    article_id: $('#article').val() || '',
+                                    event_types: window.YSZTrack.eventTypes.shareArticle || '',
+                                    user_id: userid || '',
+                                    share_channel: window.YSZTrack.shareChannels.ChannelTimeLine || ''
+                                })
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                            console.log("分享失败");
+                        }
+                    });
+                    wx.onMenuShareAppMessage({
+                        title: share_title, // 分享标题
+                        desc: share_summary, // 分享描述
+                        link: url3,
+                        imgUrl: share_logo, // 分享图标
+                        type: '', // 分享类型,music、video或link，不填默认为link
+                        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                        success: function () {
+                            console.log('share_logo', share_logo);
+                            // 用户确认分享后执行的回调函数
+                            // zmy_sdk 微信好友分享统计
+                            window.ZMY_ShareArticle && ZMY_ShareArticle({
+                                article_id: $('#article').val() || '',
+                                platform: window.ZMY_PlatformType ? ZMY_PlatformType.Mobile || '' : '',
+                                user_id: userid || '',
+                                share_channel: window.ZMY_ShareChannel ? ZMY_ShareChannel.ChannelWechat || '' : ''
+                            })
+                            // ysz_track 微信好友分享统计
+                            try {
+                                window.YSZTrack && window.YSZTrack.doTrack({
+                                    article_id: $('#article').val() || '',
+                                    event_types: window.YSZTrack.eventTypes.shareArticle || '',
+                                    user_id: userid || '',
+                                    share_channel: window.YSZTrack.shareChannels.ChannelWechat || ''
+                                })
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                });
+                wx.error(function (res) {
+                    console.log(res);
+                });
+    
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        network.http(url, type, data, succallback);
+    
+    }
+    
+    //判断是调添加关注方法还是取消关注方法
+    $(".active").click(function () {
+        if (follow == true) {
+            addFollow();
+            follow = false;
+        } else if (follow == false) {
+            deleteFollow();
+            follow = true;
+        }
+    });
+    
+    //获取编辑信息
+    function editorInfo() {
+        const url = siteurl + "/api/follow/getEditorInfo";
+        const type = "GET";
+        const succallback = function (data) {
+            try {
+                data = data.data;
+                $('.author_img').attr("src", data.editor.img);
+                $(".author-info").html(data.editor.memo);
+                $(".name").html(data.editor.roles);
+                $('.s_a_img').attr("src", data.editor.img);
+                $(".s_name").html(data.editor.realName);
+            } catch (e) { console.log(e); }
+        };
+        const dataType = "jsonp";
+    
+        const params = {
+            editorId: adduser,
+            siteId: siteid,
+            userId: userid
+        };
+        network.http(url, type, params, succallback, null, dataType);
+    }
+    
+    //添加关注
+    function addFollow() {
+        const params = {
+            followId: adduser,
+            siteId: siteid,
+            userId: userid,
+            followType: 'editor'
+        };
+    
+        const url = siteurl + "/api/follow/addFollow";
+        const type = "POST";
+        const succallback = function (data) {
+            try {
+                var msg = data.state;
+                if (msg == 200) {
+                    $(".wx_gz").attr("src", "http://static.scms.sztv.com.cn/ysz/public_new/imgs/add_gz1.png");
+                } else {
+                }
+            } catch (e) { console.log(e); }
+        };
+        network.http(url, type, params, succallback);
+    }
+    
+    //取消关注
+    function deleteFollow() {
+        const params = {
+            followId: adduser,
+            siteId: siteid,
+            userId: userid,
+            followType: 'editor'
+        };
+    
+        const url = siteurl + "/api/follow/deleteFollow";
+        const type = "POST";
+        const succallback = function (data) {
+            try {
+                var msg = data.state;
+                if (msg == 200) {
+                    $(".wx_gz").attr("src", "http://static.scms.sztv.com.cn/ysz/public_new/imgs/add_gz.png");
+                } else {
+                }
+            } catch (e) { console.log(e); }
+        };
+        network.http(url, type, params, succallback);
+    
+    }
+    
+    //查询是否关注
+    function getFollow(userid) {
+        const params = {
+            followId: adduser,
+            siteId: siteid,
+            userId: userid,
+            followType: 'editor'
+        };
+    
+        const url = siteurl + "/api/follow/getAuthorById";
+        const type = "GET";
+        const succallback = function (data) {
+            try {
+                var msg = data.data;
+                if (msg.isFollow == false) {
+                    $(".wx_gz").attr("src", "http://static.scms.sztv.com.cn/ysz/public_new/imgs/add_gz.png");
+                    follow = true;
+                } else {
+                    $(".wx_gz").attr("src", "http://static.scms.sztv.com.cn/ysz/public_new/imgs/add_gz1.png");
+                    follow = false;
+                }
+            } catch (e) { console.log(e); }
+        };
+        network.http(url, type, params, succallback, null, 'jsonp');
+    }
+    
+    //跳转关注页面加一些参数
+    $(".editor_index").click(function () {
+        // todo 不理解为什么要再拿一次siteurl
+        var siteurl = $("#siteurl").val();
+        window.location.href = siteurl + "guanzhu.html?adduser=" + adduser + "&siteid=" + siteid + "&userid=" + userid;
+    });
+    
+    //文章点赞
+    $(".zan-btn").click(function () {
+        const params = {
+            relaId: relaId,
+            tenantId: tenantId,
+            timeStamp: timeStamp,
+            accessToken: accessToken,
+            sign: sign,
+            uId: userid,
+            type: '1'
+    
+        };
+    
+        const url = siteurl + "/api/com/praise/doPraise";
+        const type = "POST";
+        const succallback = function (data) {
+            try {
+                var msg = data.returnCode;
+                if (msg == "0000") {
+                    $(".zan-num").html(data.returnData.total);
+                    if (data.returnData.flag == "1") {
+                        $(".zan-img").attr("src", "http://static.scms.sztv.com.cn/ysz/public_2019/img/zan.png");
+                        $('.zan-num').css('color', '#E11E64');
+                    } else {
+                        $(".zan-img").attr("src", "http://static.scms.sztv.com.cn/ysz/public_2019/img/zan1.png");
+                        $('.zan-num').css('color', '#363636');
+                    }
+                } else {
+    
+                }
+            } catch (e) { console.log(e); }
+        };
+        network.http(url, type, params, succallback, null, 'jsonp');
+    });
+    
+    //获取新闻详情
+    function getArticle() {
+    
+        if (isWeiXin()) {
+            //article_wx();
+            liveDetail();
+        } else {
+            if (isapp) {
+                if (uid) {
+                    userid = uid;
+                    try {
+                        var u = navigator.userAgent;
+                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        if (isiOS) {
+                            window.webkit.messageHandlers.getLoginToken.postMessage(U_token);
+                            getusermsg(U_token);
+                        } else {
+                            U_token = window.callNative.getLoginToken();
+                            getusermsg(U_token);
+                        }
+                    } catch (e) {
+    
+                    }
+                    //article_wx();
+                    liveDetail();
+                } else {
+                    try {
+                        var u = navigator.userAgent;
+                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        if (isiOS) {
+                            window.webkit.messageHandlers.getLoginToken.postMessage(U_token);
+                            getusermsg(U_token);
+                        } else {
+                            U_token = window.callNative.getLoginToken();
+                            getusermsg(U_token);
+                        }
+                    } catch (e) {
+                        userid = User;
+                        //article_wx();
+                        liveDetail();
+                    }
+                }
+            } else {
+                if (app_token) {
+                    getusermsg(app_token);
+                } else {
+                    userid = User;
+                    //article_wx();
+                    liveDetail();
+                }
+            }
+        }
+    }
+    
+    //时间戳的转化
+    function getDateDiff(dateTimeStamp) {
+        var result;
+        var minute = 1000 * 60;
+        var hour = minute * 60;
+        var day = hour * 24;
+        var halfamonth = day * 15;
+        var month = day * 30;
+        var now = new Date().getTime();
+        var dateTimeStamp2 = Date.parse(dateTimeStamp.replace(/-/gi, "/"));
+        var diffValue = now - dateTimeStamp2;
+        if (diffValue < 0) {
+            return;
+        }
+        var monthC = diffValue / month;
+        var weekC = diffValue / (7 * day);
+        var dayC = diffValue / day;
+        var hourC = diffValue / hour;
+        var minC = diffValue / minute;
+        if (monthC >= 1) {
+            if (monthC <= 12)
+                result = "" + parseInt(monthC) + "月前";
+            else {
+                result = "" + parseInt(monthC / 12) + "年前";
+            }
+        }
+        else if (weekC >= 1) {
+            result = "" + parseInt(weekC) + "周前";
+        }
+        else if (dayC >= 1) {
+            result = "" + parseInt(dayC) + "天前";
+        }
+        else if (hourC >= 1) {
+            result = "" + parseInt(hourC) + "小时前";
+        }
+        else if (minC >= 1) {
+            result = "" + parseInt(minC) + "分钟前";
+        } else {
+            result = "刚刚";
+        }
+        return result;
+    };
+    
+    
+    //时间戳的转化
+    function getDateDiffNew(dateTimeStamp) {
+    
+        var time = dateTimeStamp;
+        var mh = time.indexOf("-");
+        var timeNew = time.substr(parseInt(mh) + 1, 11);
+    
+        var result;
+        var minute = 1000 * 60;
+        var hour = minute * 60;
+        var day = hour * 24;
+        var halfamonth = day * 15;
+        var month = day * 30;
+        var now = new Date().getTime();
+        var dateTimeStamp2 = Date.parse(time.replace(/-/gi, "/"));
+        var diffValue = now - dateTimeStamp2;
+        if (diffValue < 0) {
+            return;
+        }
+        var monthC = diffValue / month;
+        var weekC = diffValue / (7 * day);
+        var dayC = diffValue / day;
+        var hourC = diffValue / hour;
+        var minC = diffValue / minute;
+        if (monthC >= 12) {
+            result = time;
+        }
+        else if (hourC >= 24) {
+            result = timeNew;
+        }
+        else if (hourC >= 1) {
+            result = "" + parseInt(hourC) + "小时前";
+        }
+        else if (minC >= 1) {
+            result = "" + parseInt(minC) + "分钟前";
+        } else if (minC < 1) {
+            result = "刚刚";
+        } else {
+            result = time;
+        }
+        return result;
+    };
+    
+    //获取热门评论列表
+    function hotcomment() {
+        const params = {
+            relaId: relaId,
+            tenantId: tenantId,
+            sign: sign,
+            uId: userid,
+            pageSize: '5',
+            page: '1',
+            replaySize: '5',
+            hotSize: '5',
+            type: '1'
+        };
+    
+        const url = siteurl + "/api/com/comment/listHot";
+        const type = "GET";
+        const succallback = function (data) {
+            try {
+                var data = data.returnData.comments;
+                var length = data.length;
+                var html = "", html1 = '';
+    
+                for (var j = 0; j < parseInt(length); j++) {
+                    var obj = data[j];
+                    html +=
+                        '<div class="hot_head">' +
+                        '<span class="hot_left">' +
+                        '<img src="' + obj.avatar + '" class="hot_img">' +
+                        '</span>' +
+                        '<span class="hot_right">' +
+                        '<p class="hot_top">' +
+                        '<span class="hot_title">' + obj.nickName + '</span>' +
+                        '</p>' +
+                        '<span class="hot_time">' + getDateDiff(obj.addTime) + '</span>' +
+                        '<p class="hot_content">' + obj.content + '</p>' +
+                        '</span>' +
+                        '</div>';
+                    html1 += '<li class="comment-left">' +
+                        '<div class="icon">' +
+                        '<img src="' + obj.avatar + '">' +
+                        '</div>' +
+                        '<div class="con">' +
+                        '<p class="con-name">' + obj.nickName + '</p>' +
+                        '<p class="con-comment"><em></em>' + obj.content + '</p>' +
+                        '</div>' +
+                        '</li>';
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        network.http(url, type, params, succallback, null);
+    }
+    
+    //添加评论
+    $("#addCommentBtn").click(function () {
+        var commentAddURL = siteurl + '/api/com/comment/add';
+        var content = $("#send_comment_content").val();
+        var pattern = /<[^>]+>/g;
+        if (isWeiXin()) {
+            if (!code && !checkCookie()) {  //直接从微信公众号进入 url没有参数
+                var scope = "snsapi_userinfo";
+    
+                var redirectURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1d6e9fa7645660fe&redirect_uri=" + windowURL + "&response_type=code&scope=" + scope + "&state=STATE#wechat_redirect";
+                window.location.href = redirectURL;
+    
+                return;
+            }
+        }
+        if (content == '') {
+            alert('评论内容不能为空');
+            return;
+        }
+        if (content.match(pattern) != null) {
+            alert('评论内容包含非法字符！');
+            return;
+        }
+        var addData = {
+            "tenantId": "ysz",
+            "relaid": article,
+            "type": 1,
+            "isanonymous": 0,
+            "content": content,
+            "uid": userid,
+            "nickName": username,
+            "avatar": avatar
+        };
+    
+        const type = 'POST';
+        const succallback = function (data) {
+            console.log(data);
+            console.log("返回信息:" + data.message);
+            if (data.returnCode === "0000") {
+                console.log(data);
+                $('#send_comment_content').val("");
+                var time = "2019-03-28 11:43:33.0";
+                var html = '', html1 = '';
+                html += '<div class="hot_head">' +
+                    '<span class="hot_left">' +
+                    '<img src="' + avatar + '" class="hot_img">' +
+                    '</span>' +
+                    '<span class="hot_right">' +
+                    '<p class="hot_top">' +
+                    '<span class="hot_title">' + username + '</span>' +
+                    '</p>' +
+                    '<span class="hot_time">刚刚</span>' +
+                    '<p class="hot_content">' + content + '</p>' +
+    
+                    '</span>' +
+                    '</div>';
+                html1 += '<li class="comment-right">' +
+                    '<div class="icon">' +
+                    '<img src="' + avatar + '">' +
+                    '</div>' +
+                    '<div class="con">' +
+                    '<p class="con-name">' + username + '</p>' +
+                    '<p class="con-comment"><em></em>' + content + '</p>' +
+                    '</div>' +
+                    '</li>';
+                $(".hot_list").append(html);
+                $('.commentUl').append(html1);
+                $(".no_comment").hide();
+                // zmy_sdk 评论统计
+                window.ZMY_CommentArticle && ZMY_CommentArticle({
+                    article_id: $('#article').val() || '',
+                    platform: window.ZMY_PlatformType ? ZMY_PlatformType.Mobile || '' : '',
+                    user_id: userid || ''
+                })
+                // ysz_track 评论统计
+                try {
+                    window.YSZTrack && window.YSZTrack.doTrack({
+                        article_id: $('#article').val() || '',
+                        event_types: window.YSZTrack.eventTypes.commentArticle || '',
+                        user_id: userid || ''
+                    })
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        };
+        network.http(commentAddURL, type, addData, succallback);
+    });
+    
+    //获取最新评论列表
+    function newcomment() {
+        const url = siteurl + "/api/com/comment/list";
+        const type = "GET";
+        const succallback = function (data) {
+            try {
+                var total = parseInt(data.returnData.total);
+                var pageSize = parseInt(data.returnData.pageSize);
+                var length = total > pageSize ? pageSize : total;
+                var pages = data.returnData.pages;
+                var data = data.returnData.comments;
+                var html = "", html1 = '';
+                for (var j = 0; j < length; j++) {
+                    var obj = data[j];
+                    html +=
+                        '<div class="hot_head">' +
+                        '<span class="hot_left">' +
+                        '<img src="' + obj.avatar + '" class="hot_img">' +
+                        '</span>' +
+                        '<span class="hot_right">' +
+                        '<p class="hot_top">' +
+                        '<span class="hot_title">' + obj.nickName + '</span>' +
+                        '</p>' +
+                        '<span class="hot_time">' + getDateDiff(obj.addTime) + '</span>' +
+                        '<p class="hot_content">' + obj.content + '</p>' +
+                        '</span>' +
+                        '</div>'
+                        ;
+                    html1 += '<li class="comment-left">' +
+                        '<div class="icon">' +
+                        '<img src="' + obj.avatar + '">' +
+                        '</div>' +
+                        '<div class="con">' +
+                        '<p class="con-name">' + obj.nickName + '</p>' +
+                        '<p class="con-comment"><em></em>' + obj.content + '</p>' +
+                        '</div>' +
+                        '</li>';
+                }
+                $(".hot_list").html(html);
+                $('.commentUl').append(html1);
+                if (pages != 0) {
+                    $('.no_comment').hide();
+                    $('.comment_more').show();
+                }
+                commentmoreflag = true;
+                if (pages == commentPageNum) {
+                    commentmoreflag = false;
+                    $(".comment").find(".drop_down").text("已加载完成");
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        const params = {
+            tenantId: tenantId,
+            relaId: relaId,
+            type: '1',
+            uid: userid,
+            replaySize: '5',
+            pageSize: '5',
+            page: commentPageNum
+        };
+        network.http(url, type, params, succallback, null);
+    }
+    
+    //查看更多评论
+    function comment_more() {
+        if (!isWeiXin()) {
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isiOS) {
+                console.info('IOS');
+                checkPhoneType();
+            } else {
+                console.info('ANDROID');
+                checkPhoneType();
+            }
+        } else {
+            var siteurl = $("#siteurl").val();
+            window.location.href = siteurl + "jm_comment.html?articleid=" + article + "," + siteid + "," + adduser;
+        }
+    }
+    //壹深圳下载地址判断
+    function checkPhoneType() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+            _hmt.push(['_trackEvent', '下载', '点击', 'iOS版']);
+            window.open('https://itunes.apple.com/us/app/yi-shen-zhen/id856994884?mt=8&uo=4');
+        } else {
+            _hmt.push(['_trackEvent', '下载', '点击', '安卓版']);
+            const url = siteurl + '/api/com/appConfig/getConfig';
+            const data = {
+                tenantid: 'ysz',
+                appid: '1'
+            };
+            network.http(url, null, data, function (data) {
+                const apkUrl = data.returnData.info.appVersion.android.apkUrl;
+                window.open(apkUrl);
+            });
+        }
+    }
+    window.checkPhoneType = checkPhoneType;
+    
+    //唤醒APP
+    function awakeApp_old(id) {
+        var schemeUrl;
+        if (id) {
+            schemeUrl = "ysz://?articleId=" + id;
+        } else {
+            schemeUrl = "ysz://";
+        }
+        var ua = window.navigator.userAgent.toLowerCase();
+        //     判断是不是在微信环境下
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            $('.share-mask').removeClass("hide");
+        } else {
+            //如果当前是iOS 且是safari浏览器
+            if (ua.indexOf('applewebkit') > -1 && ua.indexOf('mobile') > -1 && ua.indexOf('safari') > -1 &&
+                ua.indexOf('linux') === -1 && ua.indexOf('android') === -1 && ua.indexOf('chrome') === -1 &&
+                ua.indexOf('ios') === -1 && ua.indexOf('browser') === -1) {
+                var loadDateTime = new Date();
+                window.setTimeout(function () {
+                    var timeOutDateTime = new Date();
+                    // alert(timeOutDateTime - loadDateTime);
+                    if (timeOutDateTime - loadDateTime < 1000) {
+                        _hmt.push(['_trackEvent', '下载', '点击', 'iOS版']);
+                        window.open = "https://itunes.apple.com/us/app/yi-shen-zhen/id856994884?mt=8&uo=4";//ios下载地址
+                    } else {
+                    }
+                }, 2000);
+                window.location = schemeUrl;
+            } else if (navigator.userAgent.match(/android/i)) { //如果当前是安卓
+                var state = null;
+                try {
+                    window.location = schemeUrl;
+                    setTimeout(function () {
+                        _hmt.push(['_trackEvent', '下载', '点击', '安卓版']);
+                        $.getJSON("https://api.scms.sztv.com.cn/api/com/appConfig/getConfig?tenantid=ysz&appid=1", function (data) {
+                            var apkUrl = data.returnData.info.appVersion.android.apkUrl;
+                            window.open(apkUrl);
+                        });
+    
+                    }, 1000);
+                } catch (e) { }
+            } else {
+                $('.share-mask').removeClass("hide");
+            }
+        }
+    }
+    // 20240906 修改
+    function awakeApp(id) {
+        var schemeUrl;
+        if (id) {
+            schemeUrl = "ysz://?articleId=" + id;
+        } else {
+            schemeUrl = "ysz://";
+        }
+        var ua = window.navigator.userAgent.toLowerCase();
+        //     判断是不是在微信环境下
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            // $('.share-mask').removeClass("hide");
+            if (window.parent !== window || window.frames.length > 0) {
+                window.parent.location.href = "https://www.sztv.com.cn/app/"
+            } else {
+                window.location.href = "https://www.sztv.com.cn/app/"
+            }
+        } else if (/iPad|iPhone|iPod|applewebkit/ig.test(ua) && !/Safari/ig.test(ua)){
+            console.log("webview of ios")
+        }  else {
+            //如果当前是iOS 且是safari浏览器
+            if (ua.indexOf('applewebkit') > -1 && ua.indexOf('mobile') > -1 && ua.indexOf('safari') > -1 &&
+                ua.indexOf('linux') === -1 && ua.indexOf('android') === -1 && ua.indexOf('chrome') === -1 &&
+                ua.indexOf('ios') === -1 && ua.indexOf('browser') === -1) {
+                var loadDateTime = new Date();
+                window.setTimeout(function () {
+                    var timeOutDateTime = new Date();
+                    // alert(timeOutDateTime - loadDateTime);
+                    if (timeOutDateTime - loadDateTime < 1000) {
+                        _hmt.push(['_trackEvent', '下载', '点击', 'iOS版']);
+                        window.open = "https://itunes.apple.com/us/app/yi-shen-zhen/id856994884?mt=8&uo=4";//ios下载地址
+                    } else {
+                    }
+                }, 2000);
+                window.location = schemeUrl;
+            } else if (navigator.userAgent.match(/android/i)) { //如果当前是安卓
+                var state = null;
+                try {
+                    window.location = schemeUrl;
+                    setTimeout(function () {
+                        _hmt.push(['_trackEvent', '下载', '点击', '安卓版']);
+                        $.getJSON("https://api.scms.sztv.com.cn/api/com/appConfig/getConfig?tenantid=ysz&appid=1", function (data) {
+                            var apkUrl = data.returnData.info.appVersion.android.apkUrl;
+                            window.open(apkUrl);
+                        });
+    
+                    }, 1000);
+                } catch (e) { }
+            } else {
+                // $('.share-mask').removeClass("hide");
+                if (window.parent !== window || window.frames.length > 0) {
+                    window.parent.location.href = "https://www.sztv.com.cn/app/"
+                } else {
+                    window.location.href = "https://www.sztv.com.cn/app/"
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    window.awakeApp = awakeApp;
+    //app打赏回调
+    function refreshTradeRecords() {
+        pricelist();
+    }
+    //推荐阅读跳转地址加参数isAPP
+    function appurl() {
+        $(".news-view a").each(function (k) {
+            var appurl1 = $(this).attr("href") + "?isApp=true";
+            $(".news-view a").eq(k).attr("href", appurl1);
+        });
+    }
+    
+    //跳转关注页面加一些参数
+    $(".wx_avater").click(function () {
+        var siteurl = $("#siteurl").val();
+        window.location.href = siteurl + "gz_index1.html?tenantid=" + tenantId + "&keyword=" + keyword + "&userid=" + userid + "&type=4";
+    });
+    
+    
+    //编辑跳转关注页面加一些参数
+    $(".adduser").click(function () {
+        var siteurl = $("#siteurl").val();
+        var keywords = $(this).attr("alt");
+        window.location.href = siteurl + "gz_index.html?tenantid=" + tenantId + "&keyword=" + keywords + "&userid=" + userid + "&type=3";
+    });
+    
+    
+    
+    //获取app用户信息
+    function getusermsg(U_token) {
+        //获取app用户信息
+        const url = siteurl + "/api/com/appUser/getSsUserInfo";
+        const type = "GET";
+        const succallback = function (data) {
+            try {
+                userid = data.returnData.uid;
+    
+            } catch (e) { console.log(e); }
+        };
+        const params = {
+            tenantId: tenantId,
+            userToken: U_token,
+        };
+        network.http(url, type, params, succallback, null);
+    }
+    //获取新闻详情判断
+    function getdetail() {
+        let id = $("#article").val();
+    
+        let authorId = $("#authorId").val();
+        const url = siteurl + "/api/com/article/getArticleDetail";
+        const type = "GET";
+        const succallback = function (data) {
+            try {
+                var msg = data.returnCode;
+    
+                if (msg == "0000") {
+    
+                    articleDetailData = data.returnData;
+    
+                    // 关键词
+                    let keyword = data.returnData.label;
+    
+                    // 栏目id
+                    let articleType = data.returnData.type;
+                    getKeywordList(keyword, articleType);
+    
+                    if (articleType === '15') {
+                        const articleData = data.returnData;
+                        let html = '';
+                        const siteurl = $("#siteurl").val();
+                        let pointer = articleData.logo.startsWith('http') ? articleData.logo : `${siteurl}${articleData.logo}`;
+                        // 如果有直播地址，插入video节点
+                        if (articleData.liveinfo && articleData.liveinfo.livePath) {
+                            html = ` <div class="zy_media">
+                                    <video id="tw_live" src="${articleData.liveinfo.livePath}" poster="${pointer}"
+                                        data-config='{"mediaTitle": "${articleData.title}"}' controls="controls"
+                                        x-webkit-airplay="true" x5-playsinline="true" webkit-playsinline="true"
+                                        playsinline="true">
+                                    </video>
+                                </div>`;
+                        } else {
+                            html = `<img src="${pointer}" width="100%" height="100%" alt="" />`;
+                        }
+                        $('#live-video').prepend(html);
+                    }
+                    onTabbar(keyword); // 关键词渲染函数
+    
+                    if (data.returnData.type === '5') {
+                        // 微视频播放器
+                        let weivideo = document.getElementById('weiVideo');
+    
+                        let url = data.returnData.video[0].formats[0].url;
+                        let poster = data.returnData.video[0].poster;
+                        let title = data.returnData.title;
+                        weivideo.innerHTML = `<video style="max-width: 100%; max-height: 100%;" class="wei-video"
+                        src='${url}' poster="${poster}"
+                        data-config='{"mediaTitle": "${title}"}' controls="controls"
+                        x-webkit-airplay="true" x5-playsinline="true" webkit-playsinline="true"
+                        playsinline="true">
+                        </video>`;
+    
+                        // 微视频正文
+                        let weiContent = document.getElementById('weiContent');
+                        weiContent.innerHTML = data.returnData.simplecontent;
+                    } else {
+                        // 编辑器正文渲染
+                        let content = document.getElementById('content');
+                        content.innerHTML = data.returnData.content;
+                        /*
+    
+                        let vElements = document.getElementsByTagName('video');
+    
+                        for (let i = 0; i < vElements.length; i++) {
+                            let pElement = vElements[i]?.parentNode;
+    
+                            // 如果父节点是p元素，则执行
+                            if (pElement.localName === 'p') {
+                                // 将<video>元素插入到<p>元素的父元素中
+                                pElement.parentNode.insertBefore(vElements[i], pElement);
+                                // 移除当前p标签
+                                pElement.parentNode.removeChild(pElement);
+                            }
+                        }
+                        */
+                    }
+    
+                    // 设置移动端视频不自动全屏播放
+                    $('video').attr('x5-playsinline', true);
+                    $('video').attr('playsinline', true);
+                    $('video').attr('x5-video-player-fullscreen', true);
+    
+                    if (articleDetailData.bottominfo != '' && articleDetailData.bottominfo != undefined) {
+                        $('.bottomInfo').html(articleDetailData.bottominfo);
+                    } else {
+                        if (author != '') {
+                            $('.bottomInfo').append("<p>编辑：" + author + "</p>");
+                        }
+                        if (referName != '') {
+                            $('.bottomInfo').append("<p>来源：" + referName + "</p>");
+                        }
+                    }
+    
+                    if (authorId != '' && authorId != 0) {
+                        communityUser(authorId, '');
+                    } else if (referName != '') {
+                        var html = `
+                            <img src="https://www.sztv.com.cn/ysz/detail_2023/img/line.png" />
+                            <span class="author">${referName}</span>
+                            <span class="time">${data.returnData.publishdate}</span>
+                        `;
+    
+                        $('.info').html(html);
+                    } else if (author != '' || authorId === 0) {
+                        var html = `
+                            <img src="https://www.sztv.com.cn/ysz/detail_2023/img/line.png" />
+                            <span class="author">${author}</span>
+                            <span class="time">${data.returnData.publishdate}</span>
+                        `;
+    
+                        $('.info').html(html);
+                    }
+    
+                    $(".zan-num").html(data.returnData.praisecount);
+                    if (data.returnData.commentcount == "0") {
+    
+                    } else {
+                        $(".commentcount").html("(" + data.returnData.commentcount + ")");
+                    }
+                    if (data.returnData.authorhtml != " ") {
+                        $(".ysz_authorhtml").html(data.returnData.authorhtml);
+                    }
+                    if (data.returnData.copyrighthtml != " ") {
+                        $(".ysz_copyrighthtml").html(data.returnData.copyrighthtml);
+                    }
+                    var isFavor = data.returnData.praiseinfo.flag;
+                    if (isFavor == "1") {
+                        zan = false;
+                        zanid = data.returnData.praiseinfo.id;
+                        $(".zan_img").attr("src", "http://static.scms.sztv.com.cn/ysz/public_new/imgs/zan_next.png");
+                    }
+                    else {
+                        zan = true;
+                        $(".zan_img").attr("src", "http://static.scms.sztv.com.cn/ysz/public_new/imgs/zan_prev.png");
+                    }
+                    var num = data.returnData.label.length;
+                    var obj = data.returnData.label;
+                    var hitcount = data.returnData.hitcount;
+                    var rename = data.returnData.refername;
+                    var pTime = data.returnData.livestarttime;
+    
+                    if (pTime != undefined) {
+                        var timeNow = parseInt(new Date().getTime() / 1000);
+                        var pTime_new = parseInt(new Date(pTime).getTime() / 1000);
+                        console.log(timeNow);
+                        console.log(pTime_new);
+                        if (timeNow < pTime_new) {
+                            var live_html = '<img src="' + data.returnData.logo + '">' +
+                                '<p class="ts_time">本次直播将于' + pTime + '开始</p>';
+    
+                            $(".article-content").html(live_html);
+                        } else {
+    
+                        }
+                    }
+                    var key = "";
+                    for (var i = 0; i < num; i++) {
+                        key += '<a class="keyword">' + obj[i] + '</a>';
+                    }
+    
+                    $(".keyword_box").html(key);
+                    $(".wx_user").css("width", "235px");
+                    $(".wx_user").html(rename);
+                    $(".wx_info").show();
+                    // 跳转关注页面加一些参数
+                    $(".keyword").click(function () {
+                        console.log("1");
+                        var siteurl = $("#siteurl").val();
+                        var keywords = $(this).html();
+                        window.location.href = siteurl + "gz_index.html?tenantid=" + tenantId + "&keyword=" + keywords + "&userid=" + userid + "&type=2";
+                    });
+    
+                    $('#author').hide();
+                } else {
+                }
+    
+            } catch (e) { console.log(e); }
+        };
+        const params = {
+            id: id,
+            tenantId: 'ysz'
+        };
+        network.http(url, type, params, succallback);
+    };
+    window.getDetail = getdetail;
+    
+    // 关键词渲染
+    function onTabbar(list) {
+    
+        let tabbarContent = document.getElementById("tabId");
+    
+        if (!list.length) {
+            tabbarContent.style.display = 'none';
+        } else {
+            for (let i = 0; i < list.length; i++) {
+                tabbarContent.innerHTML += `<span>${list[i]}</span>`;
+            }
+        }
+    }
+    
+    function getAuthor(article) {
+        if (article.authorId || article.authorId.toString() === '0') {
+            return article.author;
+        } else {
+            return article.referName || article.author;
+        }
+    }
+    
+    // 根据关键词获取猜你想看数据
+    function getKeywordList(keywords, articleType) {
+        if (!keywords.length) {
+            $('#recommends').hide();
+            return;
+        }
+        let id = $("#article").val();
+        const sort = {
+            publishDate: "0"
+        };
+        const keyword = keywords[0];
+        params = {
+            banner: 0,
+            extendtype: 1,
+            page: 0,
+            sort: JSON.stringify(sort),
+            pageSize: 5,
+            searchType: '2',
+            tenantId: 'ysz',
+            keyword: JSON.stringify([keyword]),
+            presentarticleId: id,
+            specialtype: '1',
+            type: articleType,
+        };
+        const url = siteurl + "/api/com/article/getArticleList";
+        const type = 'GET';
+        const succallback = function (data) {
+            try {
+                console.log(data, 'data');
+    
+                if (!data.returnData.news.length) {
+                    return $(".recommend").hide();
+                }
+                let content = document.getElementById("keyList");
+    
+                const news = data.returnData.news;
+    
+                const result = news.slice(0, 3);
+    
+                for (let i = 0; i < result.length; i++) {
+                    //音频新闻
+                    if (result[i].type == '10' || result[i].type == '11') {
+                        content.innerHTML += `<div class='news-view' onclick="window.location.href = '${result[i].url}'">
+                        <div class='news-img'>
+                            <a href=${result[i].url}>
+                                ${result[i].logo.trim() ? `<img src=${result[i].logo} />` : ''}
+                                <span class="news-icon"></span>
+                                <span class="news-audio-num">${result[i].virtualHitCount}</span>
+                                <span class='news-bg'></span>
+                            </a>
+                        </div>
+                        <div class='news-header'>
+                            <h1>
+                                <a href=${result[i].url}>${result[i].title}</a>
+                            </h1>
+                            <p class="news-from">${getAuthor(result[i])}</p>
+                        </div>
+                    </div>`;
+                    } else if (result[i].type == '3' || result[i].type == '5') { // 视频新闻
+                        content.innerHTML += `<div class='news-view' onclick="window.location.href = '${result[i].url}'">
+                        <div class='news-img'>
+                            <a href=${result[i].url}>
+                            ${result[i].logo.trim() ? `<img src=${result[i].logo} />` : ''}
+    
+                                <span class="news-play"></span>
+                                <span class="news-time">${result[i].prop4}</span>
+                            </a>
+                        </div>
+                        <div class='news-header'>
+                            <h1>
+                                <a href=${result[i].url}>${result[i].title}</a>
+                            </h1>
+                            <p class="news-from">${getAuthor(result[i])}</p>
+                        </div>
+                    </div>`;
+                    } else if (result[i].type == '15') {
+                        content.innerHTML += `<div class='news-view' onclick="window.location.href = '${result[i].url}'">
+                        <div class='news-img'>
+                            <a href=${result[i].url}>
+                            ${result[i].logo.trim() ? `<img src=${result[i].logo} />` : ''}
+    
+                                <span class="news-play"></span>
+                            </a>
+                        </div>
+                        <div class='news-header'>
+                            <h1>
+                                <a href=${result[i].url}>${result[i].title}</a>
+                            </h1>
+                            <p class="news-from">${getAuthor(result[i])}</p>
+                        </div>
+                    </div>`;
+                    } else if (result[i].type === '8') {
+                        content.innerHTML += '';
+                    } else if (result[i].type === '4') {
+                        content.innerHTML += '';
+                    } else {
+                        content.innerHTML += `<div class='news-view' onclick="window.location.href = '${result[i].url}'">
+                        <div class='news-img'>
+                            <a href=${result[i].url}>
+                            ${result[i].logo.trim() ? `<img src=${result[i].logo} />` : ''}
+                            </a>
+                        </div>
+                        <div class='news-header'>
+                            <h1>
+                                <a href=${result[i].url}>${result[i].title}</a>
+                            </h1>
+                            <p class="news-from">${getAuthor(result[i])}</p>
+                        </div>
+                    </div>`;
+                    }
+                }
+    
+            } catch (e) {
+                console.log(e);
+            }
+        };
+    
+        network.http(url, type, params, succallback);
+    }
+    
+    //获取作者号详情
+    function communityUser(authorid, htmlCount) {
+        var html1 = htmlCount;
+        let publishDate = $("#publishdate").val();
+    
+        const url = 'https://yszwmapi.mp.sztv.com.cn/community/communityUser/client/heHome';
+        const type = "POST";
+        const data = {
+            tenantId: 'ysz',
+            hisUserId: authorid
+        };
+        const succallback = function (data) {
+            try {
+                console.log(data);
+                var data = data.data;
+                var html = `
+                    <a target="_blank" href="${data.userShareUrl}">
+                        <img src="${data.userImage}" class="info-img" />
+                             <div class="info-content">
+                                  <span class="info-title">${data.userName}</span>
+                                  <span class="info-summary toe">${publishDate}</span>
+                             </div>    
+                    </a>
+                `;
+                $('.info').html(html);
+                if (getByteLen(data.userName) > 40) {
+                    html1 = '';
+                }
+                $('.info-content').append(html1);
+                mui('body').on('tap', '.info a', function () {
+                    document.location.href = this.href;
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        network.http(url, type, data, succallback, null, null, baseConf.rmtBaseConf);
+    };
+    
+    //获取微直播内容详情            
+    function liveDetail() {
+    
+    
+        const url = siteurl + "/api/com/live/getLiveArticleDetailList";
+        const type = "GET";
+        const data = {
+            id: relaId,
+            tenantId: tenantId,
+            page: livePageNum
+        };
+        const succallback = function (data) {
+            try {
+                if (data.returnCode == '0000') {
+                    console.log(data);
+    
+                    var data = data.returnData.data;
+                    console.log(data);
+                    var html = '';
+                    for (var i = 0; i < data.length; i++) {
+                        html += `
+                      <li>
+                                <div class="time"><span></span>${timesFun(data[i].publishdate).timesString}</div>
+                                <div class="article">
+                                      ${data[i].content}
+                                </div>
+                                <div class="img">
+                                    <div class="my-gallery">
+                                 ${gallery(data[i])}
+                                    </div>
+                                </div>
+                            </li>                      
+                     `;
+                    }
+                    $('.liveul').append(html);
+    
+                    livemoreflag = true;
+                    if (data.length < livePageSize) {
+                        livemoreflag = false;
+                        $(".host-list").find(".drop_down").text("已加载完成");
+                    }
+    
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        network.http(url, type, data, succallback);
+    
+    }
+    function gallery(data) {
+        var html1 = '';
+        if (data.videopath == '') {
+            if (data.imagepath != '') {
+                var imagepath = data.imagepath.split(",");
+                if (imagepath.length == 1) {
+                    html1 += `<figure class="">
+                        <a href="#">
+                            <img data-preview-group="730" 
+                            data-preview-src="${imagepath[0]}" 
+                            src="${imagepath[0]}">
+                        </a>
+                    </figure>`;
+                } else if (imagepath.length == 2) {
+                    for (var j = 0; j < imagepath.length; j++) {
+                        html1 += `<figure class="two_img">
+                            <a href="#">
+                                <img data-preview-group="730" 
+                                data-preview-src="${imagepath[j]}" 
+                                src="${imagepath[j]}">
+                            </a>
+                        </figure>`;
+                    }
+                } else if (imagepath.length == 3) {
+                    for (var j1 = 0; j1 < imagepath.length; j1++) {
+                        html1 += `<figure class="three_img">
+                            <a href="#">
+                                <img data-preview-group="730" 
+                                data-preview-src="${imagepath[j1]}" 
+                                src="${imagepath[j1]}">
+                            </a>
+                        </figure>`;
+                    }
+                } else if (imagepath.length == 4) {
+                    for (var j2 = 0; j2 < imagepath.length; j2++) {
+                        html1 += `<figure class="four_img">
+                            <a href="#">
+                                <img data-preview-group="730" 
+                                data-preview-src="${imagepath[j2]}" 
+                                src="${imagepath[j2]}">
+                            </a>
+                        </figure>`;
+                    }
+                } else {
+                    for (var j3 = 0; j3 < imagepath.length; j3++) {
+                        html1 += `<figure class="more_img">
+                            <a href="#">
+                                <img data-preview-group="730" 
+                                data-preview-src="${imagepath[j3]}" 
+                                src="${imagepath[j3]}">
+                            </a>
+                        </figure>`;
+                    }
+                }
+            }
+        } else {
+            html1 += `<video poster=${data.imagepath} x5-playsinline="" 
+            playsinline="" webkit-playsinline="" preload="auto" 
+            x5-video-player-fullscreen="true" controls="controls" 
+            oncontextmenu="return false" controlslist="nodownload"  
+                src="${data.videopath}"></video>
+            `;
+        }
+        return html1;
+    }
+    function subTime(time) {
+        var mh = time.indexOf(":");
+        var timeNew = time.substr(parseInt(mh) - 2, 5);
+        return timeNew;
+    }
+    $(window).scroll(function () {
+        // 模拟上拉加载（到达页面底部 显示动画  加载数据） 注意：主持和聊天切换的时候需判断，
+        if ($(document).scrollTop() >= $(document).height() - $(window).height() - 3) {
+            var text = $("#livetab li").find("a.selected").text();
+            if (text == "直播") {
+                if (livemoreflag) {
+                    $(".host-list").find(".drop_down").text("正在加载...");
+                    livePageNum++;
+                    liveDetail();
+                }
+            } else if (text == "聊天") {
+                if (commentmoreflag) {
+                    $(".comment").find(".drop_down").text("正在加载...");
+                    commentPageNum++;
+                    newcomment();
+                }
+            }
+        }
+    
+    });
+    $(".news-view a").click(function () {
+        window.location.href = $(this).attr("href");
+    });
+    
+    $(".mui-content a").click(function () {
+        window.location.href = $(this).attr("href");
+    });
+    $(".article-content a").click(function () {
+        window.location.href = $(this).attr("href");
+    });
+    $(".slide a").click(function () {
+        window.location.href = $(this).attr("href");
+    });
+    for (var i = 0; i < $(".news-header .news_date").length; i++) {
+        var timesData = $(".news-header .news_date").eq(i).html();
+        $(".news-header .news_date").eq(i).html(timesFun(timesData).timesString);
+    }
+    
+    function timesFun(timesData) {
+        //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
+        var dateBegin = new Date(timesData.replace(/-/g, "/"));//将-转化为/，使用new Date
+        var dateEnd = new Date();//获取当前时间
+        var dateDiff = dateEnd.getTime() - dateBegin.getTime();//时间差的毫秒数
+        var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000));//计算出相差天数
+        var leave1 = dateDiff % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000));//计算出小时数
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000);    //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000));//计算相差分钟数
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000);      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000);
+        var timesString = '';
+    
+        if (dayDiff != 0) {
+            timesString = dayDiff + '天前';
+        } else if (dayDiff == 0 && hours != 0) {
+            timesString = hours + '小时前';
+        } else if (dayDiff == 0 && hours == 0) {
+            timesString = minutes + '分钟前';
+        }
+    
+        return {
+            timesString: timesString
+        };
+    }
+    
+    function hotCount(num) {
+        var num = num;
+        if (num > 0 && num <= 9999) {
+            return num;
+        } else if (num > 9999) {
+            num = Math.floor(num / 1000) / 10 + '万';
+            return num;
+        } else if (num == 0) {
+        }
+    }
+    
+    //判断字符长度    
+    function getByteLen(val) {
+        var len = 0;
+        for (var i = 0; i < val.length; i++) {
+            var length = val.charCodeAt(i);
+            if (length >= 0 && length <= 128) { len += 1; }
+            else {
+                len += 2;
+            }
+        }
+        return len;
+    }
+    
+    window.addEventListener('scroll', function () {
+        var timer;//使用闭包，缓存变量
+        var startTime = new Date();
+        var top1 = 0;
+        var scroll = 0;
+        var header = $('header');
+        var hslide = $('.hslide');
+        if ($('.slides').children().length > 0) {
+            var glide = $('.hslide').glide({
+    
+                //autoplay:true,//是否自动播放 默认值 true如果不需要就设置此值
+    
+                animationTime: 500, //动画过度效果，只有当浏览器支持CSS3的时候生效
+    
+                arrows: true, //是否显示左右导航器
+                //arrowsWrapperClass: "arrowsWrapper",//滑块箭头导航器外部DIV类名
+                //arrowMainClass: "slider-arrow",//滑块箭头公共类名
+                //arrowRightClass:"slider-arrow--right",//滑块右箭头类名
+                //arrowLeftClass:"slider-arrow--left",//滑块左箭头类名
+                arrowRightText: "",//定义左右导航器文字或者符号也可以是类
+                arrowLeftText: "",
+    
+                nav: true, //主导航器也就是本例中显示的小方块
+                navCenter: true, //主导航器位置是否居中
+                navClass: "slider-nav",//主导航器外部div类名
+                navItemClass: "slider-nav__item", //本例中小方块的样式
+                navCurrentItemClass: "slider-nav__item--current" //被选中后的样式
+    
+                //
+            });
+            if (article_type == 5) {
+                hslide.css("margin-bottom", "10px");
+            }
+            return function () {
+                var curTime = new Date();
+                if (curTime - startTime >= 1000) {
+                    timer = setTimeout(function () {
+                        var top2 = $(window).scrollTop();
+                        if (top2 > top1 && scroll == 0) {
+                            hslide.addClass('hide');
+                            scroll = 1;
+                        } else if (top2 < top1 && scroll == 1) {
+                            hslide.removeClass('hide');
+                            scroll = 0;
+                        }
+                        top1 = top2;
+                    }, 500);
+                    startTime = curTime;
+                }
+            };
+        } else {
+            header.removeClass('hide');
+            hslide.addClass('hide');
+            return function () {
+                var curTime = new Date();
+                if (curTime - startTime >= 1000) {
+                    timer = setTimeout(function () {
+                        var top2 = $(window).scrollTop();
+                        if (top2 > top1 && scroll == 0) {
+                            header.addClass('hide');
+                            scroll = 1;
+                        } else if (top2 < top1 && scroll == 1) {
+                            header.removeClass('hide');
+                            scroll = 0;
+                        }
+                        top1 = top2;
+                    }, 500);
+                    startTime = curTime;
+                }
+            };
+        }
+    }());
+    $("#send_comment_content").focus(function () {
+        $('#send_comment a').css("opacity", '1');
+    }).blur(function () {
+        if ($("#send_comment_content").val() != '') {
+            $('#send_comment a').css("opacity", '1');
+        } else {
+            $('#send_comment a').css("opacity", '.3');
+        }
+        //window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    });
+    $('.video-box video').attr('x5-video-player-type', 'h5-page');
+    function videoResize() {
+        //视频宽处理
+        if (typeof (options) != "undefined") {
+            var videoID = options.guid;
+            $("[id=" + videoID + "]").css({ "width": "100%" });
+        }
+    }
+    
+    function checkuser() {
+        var u = navigator.userAgent;
+        var ua = u.toLowerCase();
+        var user_token;
+        isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+        try {
+            if (isiOS) {
+                user_token = localStorage.getItem("getLoginToken");
+            } else {
+                user_token = window.callNative.getLoginToken();
+            }
+            user_token = JSON.parse(user_token);
+            app_token = user_token.token;
+            return app_token;
+    
+        } catch (err) {
+            return false;
+        }
+    
+    }
+    
+    function getShareInfo() {
+        return {
+            share_title: share_title,
+            share_summary: share_summary,
+            share_logo: share_logo,
+            share_url: (window.location.href).split("?")[0]
+        };
+    }
+    
+    
+    function goBack() {
+        window.history.go(-1);
+    }
+    window.goBack = goBack;
+    // ysz_track 壹深圳埋点
+    class YSZ_Track {
+        /**
+         * 构造函数
+         * @param {*} trackType 请求类型
+         * @param {*} trackUrl 请求地址
+         * @param {*} trackBaseConf 请求配置 参考network.js
+         */
+        constructor(trackType = 'post', trackUrl = '', trackBaseConf = {}) {
+          this.trackType = (trackType || '').toLocaleLowerCase()
+          this.trackUrl = trackUrl
+          this.trackBaseConf = trackBaseConf
+          // 平台类型
+          this.platforms = {
+            Android: 'Android',
+            IOS: 'IOS',
+            Mobile: 'Mobile',
+            PC: 'PC',
+          }
+      
+          // 分享渠道
+          this.shareChannels = {
+            ChannelWechat: 'ChannelWechat', // 微信
+            ChannelTimeLine: 'ChannelTimeLine', // 朋友圈
+            ChannelSina: 'ChannelSina', // 新浪微博
+            ChannelQQ: 'ChannelQQ', // QQ
+            ChannelMeeTime: 'ChannelMeeTime', // 华为畅连
+            ChannelAlbum: 'ChannelAlbum' // 保存到相册
+          }
+      
+          // 事件类型
+          this.eventTypes = {
+            openArticle: 'pv',
+            shareArticle: 'share',
+            commentArticle: 'comment',
+            likeArticle: 'praise',
+            pageStay: 'page_stay',
+          }
+      
+          // 数据源 壹深圳
+          this.dataSources = 'ysz'
+          
+          //页面加载初始时间
+          this.pageStartTime = Date.now()
+
+          //页面停留时长 ms
+          this.pageTotalDuration = 0
+
+          // 页面是否在后台
+          this.isPageBackground = false
+        }
+      
+        // 获取设备信息
+        detectDevice() {
+          const ua = navigator.userAgent
+          const isMobile = /(android|webos|iphone|ipad|ipod|blackberry|windows phone)/i.test(ua)
+          const isIOS = /(iphone|ipad|ipod)/i.test(ua) || (ua.includes('Macintosh') && 'ontouchend' in document)
+          const isAndroid = /android/i.test(ua) && !/windows phone/i.test(ua)
+          return {
+            isMobile: isMobile,
+            isiOS: isMobile && isIOS,
+            isAndroid: isMobile && isAndroid && !isIOS
+          }
+        }
+      
+        // 获取平台类型
+        getPlatform() {
+          const device = this.detectDevice()
+          if(device.isiOS) return this.platforms.IOS
+          if(device.isAndroid) return this.platforms.Android
+          if(device.isMobile) return this.platforms.Mobile
+          return this.platforms.PC
+        }
+      
+        // 获取来源url
+        getReferrer() {
+          return document.referrer || ''
+        }
+      
+        // 获取uuid
+        getUUID() {
+          return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(t) {
+            var i = Math.random() * 16 | 0
+              , u = t === "x" ? i : i & 3 | 8;
+            return u.toString(16)
+          })
+        }
+
+        // 获取页面停留时长
+        getPageDuration() {
+            if (this.isPageBackground) return this.pageTotalDuration;
+            return this.pageTotalDuration + (Date.now() - this.pageStartTime);
+        }
+
+        // 监听页面隐藏和显示
+        trackPageVisibility() {
+          document.addEventListener('visibilitychange', (function() {
+            if (document.hidden) {
+                console.log('页面隐藏')
+                this.isPageBackground = true
+                this.pageTotalDuration += Date.now() - this.pageStartTime
+            } else {
+                console.log('页面展示')
+                this.isPageBackground = false
+                this.pageStartTime = Date.now()
+            }
+          }).bind(this))
+        }
+      
+        // 执行上报
+        doTrack(options = {}) {
+          let trackData = {}
+          // 稿件ID *必填
+          trackData.article_id = options.article_id || ''    
+          // 事件类型 *必填
+          trackData.event_types = options.event_types || ''
+          // 用户ID
+          trackData.user_id = options.user_id || ''
+          if(!trackData.article_id || !trackData.event_types) {
+            console.error('ysz track 缺失必填参数！')
+            return
+          }
+          // 会话Id *必填
+          trackData.session_id = this.getUUID()
+          // 平台 *必填
+          trackData.platform = this.getPlatform()
+          // 设备 ID *必填
+          trackData.device_id = this.getUUID()
+          // 当前页面的地址 *必填
+          trackData.href = window.location.href
+          // 上一跳页面
+          trackData.refer = this.getReferrer()
+          // 来源 *必填
+          trackData.sources = 'JS_SDK'
+          // 数据源 *必填
+          trackData.data_sources = this.dataSources
+          // 事件时间 *必填
+          trackData.event_times = new Date().getTime()
+          switch (trackData.event_types) {
+            // pv
+            case this.eventTypes.openArticle:
+              console.log('ysz track openArticle')
+              break;
+              // share
+              case this.eventTypes.shareArticle:
+                console.log('ysz track shareArticle')
+                // 分享渠道
+                trackData.share_channel = options.share_channel || ''
+                if(!trackData.share_channel) {
+                  console.error('ysz track openArticle 缺失分享渠道参数！')
+                  return
+                }
+              break;
+            // comment
+            case this.eventTypes.commentArticle:
+              console.log('ysz track commentArticle')
+              
+              break;
+            // praise
+            case this.eventTypes.likeArticle:
+              console.log('ysz track likeArticle')
+              
+              break;
+            // page_stay
+            case this.eventTypes.pageStay:
+              console.log('ysz track pageStay')
+              // 页面停留时长
+              trackData.duration = options.duration || ''
+              if(!trackData.duration) {
+                console.error('ysz track pageStay 缺失停留时长参数！')
+                return
+              }
+              break;
+            default:
+              break;
+          }
+          console.log('trackData:', trackData)
+          if(this.trackType && this.trackUrl && this.trackBaseConf && window.skUtils && jQuery) {
+            try {
+              const hamc = window.skUtils.getHmacTicket({
+                  ...this.trackBaseConf,
+                  headers: "x-date @request-target host nonce", // 指定Authorization的头内容
+                  signStr: conf => {
+                      return `x-date: ${conf["x-date"]}\n@request-target: ${conf["@request-target"]}\nhost: ${conf["host"]}\nnonce: ${conf["nonce"]}`;
+                  }
+              }, this.trackType, this.trackUrl);
+              if(trackData.event_types === this.eventTypes.pageStay) {
+                fetch(this.trackUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(trackData),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Date': hamc.Date,
+                        'Authorization': hamc.Authorization,
+                        'Nonce': hamc.Nonce,
+                    },
+                    keepalive: true,
+                  });
+              } else {
+                  $.ajax({
+                      headers: {
+                          'X-Date': hamc.Date,
+                          'Authorization': hamc.Authorization,
+                          'Nonce': hamc.Nonce,
+                      },
+                      url: this.trackUrl,
+                      type: this.trackType,
+                      data: JSON.stringify(trackData),
+                      dataType: "json",
+                      contentType: "application/json",
+                      success: function (res) {
+                          console.log("ysz track 数据请求成功！", res)
+                      },
+                      error: function (err) {
+                          console.error("ysz track 数据请求失败！", err)
+                      }
+                  });
+              }
+            } catch (error) {
+              
+            }
+          }
+        }
+    }
+    window.YSZTrack = new YSZ_Track('post', 'https://bdcollector.mp.sztv.com.cn/v1/events/report', {
+        username: "bdcollector",
+        secret: "5p96WtxI4G2LGFrjw18hwx2fhVYhWIz9v"
+    });
+    window.YSZTrack && window.YSZTrack.trackPageVisibility && window.YSZTrack.trackPageVisibility();
+    // 监听页面卸载时上报停留时间
+    function trackPageUnload() {
+        window.addEventListener('pagehide', function() {
+            console.log('pagehide')
+            window.YSZTrack && window.YSZTrack.doTrack({
+                article_id: $('#article').val() || '',
+                event_types: window.YSZTrack.eventTypes.pageStay || '',
+                duration: window.YSZTrack.getPageDuration() || 0,
+                user_id: userid || ''
+            })
+        })
+    };
+    trackPageUnload();
+    },{"./config.js":2,"./network.js":3}],2:[function(require,module,exports){
+    const BaseConf = {
+        // 壹深圳
+        yszBaseConf: {
+            username: "onesz",
+            secret: "xUJ7Gls45St0CTnatnwZwsH4UyYj0rpX",
+        },
+        // 融媒体
+        rmtBaseConf: {
+            username: "yszspider",
+            secret: "qE10qYTTk2fGstt6i8x1TlbiX8k2kzM2"
+        },
+    };
+    module.exports = BaseConf;
+    
+    
+    },{}],3:[function(require,module,exports){
+    const BaseConf = require('./config');
+    const Network = {
+        http: function (url, type, data, succallback, failcallback, dataType, baseConf) {
+            if (!jQuery) {
+                throw "unimport jquery";
+            } else {
+                const defaultType = 'GET';
+                const methodType = type ? type.toLocaleLowerCase() : defaultType.toLocaleLowerCase();
+    
+                let yszConf = BaseConf.yszBaseConf;
+    
+                const conf = baseConf || yszConf;
+    
+                const hamc = window.skUtils.getHmacTicket({
+                    ...conf,
+                    headers: "x-date @request-target host nonce", // 指定Authorization的头内容
+                    signStr: conf => {
+                        return `x-date: ${conf["x-date"]}\n@request-target: ${conf["@request-target"]}\nhost: ${conf["host"]}\nnonce: ${conf["nonce"]}`;
+                    }
+                }, methodType, url);
+                $.ajax({
+                    headers: {
+                        'X-Date': hamc.Date,
+                        'Authorization': hamc.Authorization,
+                        'Nonce': hamc.Nonce,
+                    },
+                    url: url,
+                    type: type || defaultType,
+                    data: data,
+                    dataType: dataType || "json",
+                    success: succallback,
+                    error: function () {
+                        console.log("数据请求失败！", url,);
+                    }
+                });
+            }
+        },
+    };
+    module.exports = Network;
+    
+    
+    },{"./config":2}]},{},[1]);
+    

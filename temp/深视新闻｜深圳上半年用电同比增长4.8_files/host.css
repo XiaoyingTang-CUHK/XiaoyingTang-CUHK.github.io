@@ -1,0 +1,1075 @@
+body,
+html  {
+  cursor:pointer;
+  background-color: #F6F6F6;
+}
+#nk_viewWap_2 {  
+	display:none;
+} 
+ 
+
+       /*------------------------顶部 begin------------------------*/
+.nk_cen {
+	position: relative;
+	width: 100%;
+	max-width: 640px;
+	// height: 100%;
+	// min-height: 320px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.nk_cenTop {
+	overflow:hidden;
+}
+.nk_cenTop p {
+	float:left;
+	display:inline;
+	line-height: 1.4;
+	color:#333;
+    text-indent:32px;
+    overflow:hidden;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+.nk_cenTop img {
+	float:left;
+	display:inline;
+	// height:160px;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+}
+.nk_cenTop p span {
+	background-color: transparent !important;
+    display: block;
+    padding: 0 10px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+			/*------------------------顶部 end------------------------*/
+
+
+
+
+			/*------------------------tab选项卡切换 begin------------------------*/
+.nk_tab {
+	overflow:hidden;
+	color:#333;
+	background-color: #fff;
+	border-top: #DFDFDD solid 1px;
+	border-bottom: #DFDFDD solid 1px;
+}
+.nk_tab span {
+	float: left;
+	display: inline;
+	width:50%;
+	height:40px;
+	line-height: 40px;
+	font-size: 16px;
+	text-align: center;
+	overflow:hidden;
+	border-bottom: #fff solid 2px;
+}
+.nk_tab span.onClick {
+	color: #ff0000;
+	border-bottom: #ff0000 solid 2px;
+
+}
+.nk_tab b {
+    font-size: 12px;
+    background-color: red;
+    border-radius: 50%;
+    color: #fff;
+    padding: 2px 2.5px;
+    position:relative;
+    top:-1px;
+    left:3px;
+}
+			/*------------------------tab选项卡切换 end------------------------*/
+
+
+
+/*返回顶部  begin*/
+.returnTop {
+	position:fixed;
+	z-index: 60;
+	right:30px;
+	bottom:50px;
+	display:inline-block;
+	width:40px;
+	height:40px;
+	overflow:hidden;
+	background-image: url('../images/returnTop.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	display:none;
+}
+			/*------------------------ 返回顶部  end ------------------------*/
+
+
+
+
+			/*------------------------ 数据容器 begin ------------------------*/
+.nk_viewWap {
+	padding: 0 10px; 
+	color:#333;
+	overflow:hidden;
+	background-color: #F6F6F6;
+}
+			/*------------------------ 数据容器 end ------------------------*/
+
+			/*------------------------ 主持模块 begin ------------------------*/
+.nk_viewMob {
+	padding: 10px 0;
+	overflow:hidden;
+	border-bottom: #DFDFDD solid 1px;
+}
+.nk_viewMob:last-child {
+	border-bottom: 0;
+}
+.nk_viewMob .viewMVi {
+	background-color: #000;
+	width:90%;
+	max-width: 90%;
+	// height:130px;
+	overflow:hidden;
+	margin-top: 4px;
+}
+.viewMViImg {
+	width:90%;
+	max-width: 90%;
+	// height:130px;
+	overflow:hidden;
+	margin-top: 4px;
+}
+.viewMViImg .wz {
+	position:relative;
+	overflow:hidden;
+	line-height: 0;
+}
+.viewMViImg img {
+	width:100%;
+	max-width: 100%;
+	overflow:hidden;
+}
+.viewMViImg b {
+	position:absolute;
+	left:50%;
+	top:50%;
+	display:inline-block;
+	width:72px;
+	height:72px;
+	margin-top: -36px;
+	margin-left: -36px;
+	overflow:hidden;
+	background-image: url('../images/videTy.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+.nk_viewMob .danImg{
+	max-height: 250px;
+}
+.nk_viewMob .danImg,
+.nk_viewMob .duoImg {
+	overflow:hidden;
+	line-height:0;
+	padding-top: 4px;
+	padding-bottom: 3px;
+}
+.nk_viewMob .duoImg a {
+	float:left;
+	display:inline;
+	width: 31%;
+    height: 79px;
+    overflow: hidden;
+    margin: 0px 3px 3px 0px;
+}
+.nk_viewMob .danImg a {
+	display: block;
+	max-width:60%;
+	max-height:200px;
+	overflow:hidden;
+}
+.nk_viewMob .danImg img {
+	position:relative;
+}
+.nk_viewMob .duoImg img {
+ 	position:relative;
+}
+.nk_viewLef {
+	float:left;
+	display:inline;
+	width:40px;
+	overflow:hidden;
+}
+.nk_viewLef img {
+	width:40px;
+	height:40px;
+	overflow:hidden;
+}
+.nk_viewRig {
+	margin-left: 48px;
+	// overflow:hidden;
+}
+.nk_viewRig .titleWa {
+	overflow:hidden;
+	margin-bottom: 5px;
+	line-height: 1.3;
+}
+.nk_viewRig .titleWa .title {
+    font-weight: bold;
+	color:#586C96;
+	font-size: 14px;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+}
+.nk_viewRig .titleWa .city {
+	float:right;
+	display:inline;
+	overflow:hidden;
+    color: #919191;
+    font-size: 14px;
+}
+.nk_viewRig .text {
+	overflow:hidden;
+	line-height: 1.3;
+	max-height: 54px;
+}
+.nk_viewRig .text img {
+	width:20px;
+	height:20px;
+	vertical-align: sub;
+	position:relative;
+	top:1px;
+}
+.nk_viewRig .text.inl {
+	max-height: inherit;
+}
+.nk_viewRig .text p {
+	overflow:hidden;
+    color:#3D3D3D;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+.nk_viewRig .text p.zhiDing:before,
+.nk_viewRig .zhiDing:before {
+    content: "置顶";
+    display: inline-block;
+    background-color: #0082D0;
+    color: #fff;
+    padding: 0px 5px;
+    line-height: 16px;
+    margin-right: 3px;
+    border-radius: 2px;
+    font-size: 12px;
+    position: relative;
+    top: -1px;
+}
+.nk_viewRig .duoImg.zhiDing:before {
+	content: "置顶";
+    display: block;
+    background-color: #0082D0;
+    color: #fff;
+    width: 24px;
+    padding: 0px 5px;
+    line-height: 16px;
+    margin-right: 3px;
+    border-radius: 2px;
+    font-size: 12px;
+    position: relative;
+    top: -1px;
+}
+.nk_viewRig .showAll {
+	color:#586C96;
+	font-size: 14px;
+	overflow:hidden;
+	display:none;
+}
+.nk_viewRig .time {
+	margin-top: 3px;
+	margin-bottom: 4px;
+	height:20px;
+	position:relative;
+}
+.clickCommenWap {
+	position: absolute;
+    right: 22px;
+    top: -8px;
+	width:125px;
+	height:37px;
+	overflow:hidden;
+	border-radius: 4px;
+	z-index: 36;
+}
+.clickComment3 {
+    float:right;
+	display:inline;
+	width:185px;
+	height:35px;
+	margin-right: -190px;
+	overflow:hidden;
+	border-radius: 4px;
+	background-image: url('../images/host/PingLun.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.clickComment3 a {
+	float:left;
+	display:inline;
+	overflow:hidden;
+	width:33.3%;
+	height:100%;
+	color:#fff;
+	font-size: 14px;
+	padding-left: 24px;
+	line-height:34px;
+	outline: none;
+}
+.clickComment2 {
+	float:right;
+	display:inline;
+	width:123px;
+	height:35px;
+	margin-right: -123px;
+	border-radius: 4px;
+	overflow:hidden;
+	background-image: url('../images/host/PingLun2.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.clickComment2 a {
+	float:left;
+	display:inline;
+	overflow:hidden;
+	width:50%;
+	height:100%;
+	color:#fff;
+	font-size: 14px;
+	padding-left: 24px;
+	line-height:34px;
+	outline: none;
+}
+.nk_viewRig .time span {
+	float:left;
+	display:inline;
+	color:#9C9C9C;
+	font-size: 13px;
+	overflow:hidden;
+}
+.nk_viewRig .time span.deleMod {
+	color:#333;
+	margin-left: 6px;
+}
+.nk_viewRig .time .cz {
+	// float:right;
+	// display:inline;  
+	overflow:hidden;
+	// width:20px;
+	// height:16px;
+    margin-top: 1px;
+	background-image: url('../images/host/pinglun.jpg');
+	background-repeat: no-repeat;
+	background-size: 17px 13px;
+    width: 30px;
+    height: 33px;
+    background-position: 8px 8px;
+    position: absolute;
+    top: -8px;
+    right: 0;
+
+
+
+        width: 60px;
+    height: 50px;
+    background-position: 38px 18px;
+    position: absolute;
+    top: -18px;
+    right: 0;
+    z-index: 39;
+    background-color: transparent;
+
+}
+.nk_cenZanPl {
+	background-color: #F3F3F5;
+	overflow:hidden;
+}
+.nk_zan {
+	padding:6px 0 4px 0;
+	overflow:hidden;
+	border-bottom: #DFDFDD solid 1px;
+}
+.nk_zan .nk_zanLeft {
+	float: left;
+	display:inline;
+	width:27px;
+	height:27px;
+	overflow:hidden;
+	background-image: url('../images/host/zan.jpg');
+	background-repeat: no-repeat;
+	background-size: 16px 14px;
+	background-position: 8px 2px;
+}
+.nk_zan .nk_zanRight {
+	margin-left: 32px;
+	padding-right: 10px;
+	overflow:hidden;
+}
+.nk_zan .nk_zanRight img {
+	float: left;
+	display:inline;
+	width:30px;
+	height:30px;
+	overflow:hidden;
+	margin: 0 2px 2px 0;
+}
+.nk_zan .nk_zanRight .zanNum {
+	float:left;
+	display:inline;
+	margin-top: 5px;
+	margin-left: 13px;
+	color:#9C9C9C;
+	font-size: 13px;
+	overflow:hidden;
+}
+.nk_pl {
+	padding:6px 0;
+	overflow:hidden;
+}
+.nk_pl .nk_plLeft {
+	float: left;
+	display:inline;
+	width:27px;
+	height:27px;
+	overflow:hidden;
+	background-image: url('../images/host/liuyan.jpg');
+	background-repeat: no-repeat;
+	background-size: 16px 14px;
+	background-position: 8px 2px;
+}
+.nk_pl .nk_plRight {
+	margin-left: 32px;
+	padding-right: 10px;
+	overflow:hidden;
+}
+.nk_plRightMo {
+	overflow:hidden;
+	margin-bottom: 5px;
+	font-size: 0.8em;
+}
+.nk_plRightMo .img {
+	float: left;
+	display:inline;
+	width:30px;
+	height:30px;
+	overflow:hidden;
+}
+.nk_plRightMo .nr {
+	margin-left: 35px;
+	overflow:hidden;
+}
+.nk_plRightMo .nr .name {
+	color:#5D7098;
+	margin-bottom: 0;
+	font-size: 13px;
+    line-height: 17px;
+}
+.nk_plRightMo .nr .huiFu {
+	overflow:hidden;
+	margin-bottom: 0;
+	font-size: 13px;
+	color:#333;
+    line-height: 17px;
+}
+.nk_plRightMo .nr .huiFu img {
+	width:20px;
+	height:20px;
+	vertical-align: sub;
+	position:relative;
+	top:1px;
+}
+.checkDuo {
+	float:right;
+	display:inline;
+	color:#5D7098;
+	margin-bottom: 0;
+	font-size: 13px;
+    line-height: 17px;
+    text-align: right;
+    overflow:hidden;
+    outline:none;
+}
+			/*------------------------ 主持模块 end ------------------------*/
+
+
+
+
+
+			/*------------------------ 聊天模块 begin ------------------------*/
+#nk_viewWap_2 {
+	overflow:hidden;
+}
+
+			/*------------------------ 聊天模块 end ------------------------*/
+
+
+
+
+
+			/*------------------------ 图片预览自定义的css begin ------------------------*/
+.mui-preview-image.mui-fullscreen {
+	position: fixed;
+	z-index: 90000;
+	background-color: #000;
+}
+.mui-preview-header,
+.mui-preview-footer {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	z-index: 10;
+}
+.mui-preview-header {
+	height: 44px;
+	top: 70px;
+}
+.mui-preview-footer {
+	height: 50px;
+	bottom: 0px;
+}
+.mui-preview-header .mui-preview-indicator {
+	display: block;
+	line-height: 25px;
+	color: #fff;
+	text-align: center;
+	margin: 15px auto 4;
+	width: 70px;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 12px;
+	font-size: 16px;
+}
+.mui-preview-image {
+	display: none;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+.mui-preview-image.mui-preview-in {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+}
+.mui-preview-image.mui-preview-out {
+	background: none;
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
+.mui-preview-image.mui-preview-out .mui-preview-header,
+.mui-preview-image.mui-preview-out .mui-preview-footer {
+	display: none;
+}
+.mui-zoom-scroller {
+	position: absolute;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+}
+.mui-zoom {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.mui-slider .mui-slider-group .mui-slider-item img {
+	/*width: 640px;*/
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
+.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+	width: 100%;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+	display: inline-table;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+	display: table-cell;
+	vertical-align: middle;
+}
+.mui-preview-loading {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.mui-preview-loading.mui-active {
+	display: block;
+}
+.mui-preview-loading .mui-spinner-white {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	height: 50px;
+	width: 50px;
+}
+.mui-preview-image img.mui-transitioning {
+	-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+	transition: transform 0.5s ease, opacity 0.5s ease;
+}
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+p img {
+	max-width: 100%;
+	height: auto;
+}
+			/*------------------------ 图片预览自定义的css end ------------------------*/
+
+
+
+
+
+
+			/*------------------------ 主持写评论  begin ------------------------*/
+#zcXpl {
+	position:fixed;
+	left:0;
+	bottom:0;
+	right:0;
+	overflow:hidden;
+	z-index: 666;
+	background-color: #EFEFF4;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    height: 0px;
+}
+#zcXpl .p1{
+	margin-bottom: 0;
+    color: #717376;
+    padding: 0 3%;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+}
+#zcXpl .tex1 {
+    border-radius: 6px;
+    border: 0;
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+#zcXpl .caWap {
+	padding: 7px 10px;
+	border:0;
+	background-color: #fff;
+	overflow:hidden;
+	border-radius: 6px;
+}
+#zcXpl .caWap .tupian,
+#zcXpl .caWap .yuyin,
+#zcXpl .caWap .biaoQi {
+	float:left;
+	display:inline;
+	width:25%;
+	height:54px;
+	overflow:hidden;
+    outline:none;
+    border:0;
+}
+#zcXpl .tupian {
+	background-image: url('../images/host/zhaopian.png');
+	background-repeat: no-repeat;
+	background-size: 31px 47px;
+    background-position: 20px 0px;
+}
+#zcXpl .yuyin {
+	background-image: url('../images/host/yuyin.png');
+	background-repeat: no-repeat;
+	background-size: 31px 47px;
+    background-position: 20px 0px;
+}
+#zcXpl .zhaopian {
+	background-image: url('../images/host/zhao2.png');
+	background-repeat: no-repeat;
+	background-size: 31px 47px;
+    background-position: 20px 0px;
+}
+#zcXpl .biaoQi {
+	background-image: url('../images/host/biaoqing.png');
+	background-repeat: no-repeat;
+	background-size: 31px 47px;
+    background-position: 20px 0px;
+}
+#zcXpl button {
+	display:block;
+	margin-left: 3%;
+	width:94%;
+	padding:10px 12px;
+    margin-top: 10px;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 4px;
+}
+#zcXpl .fb {
+	color:#FFF;
+	background-color: #04BE01;
+	border:#04BE01 solid 1px;
+}
+#zcXpl .fh {
+	color:#333;
+	background-color: #FBFBFC;
+	border:#D4D4D6 solid 1px;
+}
+			/*------------------------ 主持写评论  end ------------------------*/
+
+
+
+			/*------------------------ 聊天模块下的表单 begin ------------------------*/
+#liaoTianBotM {
+	position:fixed;
+	bottom:-50px;
+	left:0;
+	right:0;
+	z-index: 66;
+	border-top: #D9D9D9 solid 1px;
+	overflow:hidden;
+	background-color: #fff;
+    height:42.5px;
+	background-image: url('../images/host/liaoTianBotBj.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+#liaoTianBotM span {
+	display:inline-block;
+	width: 13%;
+    height: 100%;
+	overflow:hidden;
+	background-image: url('../images/host/wawa.png');
+	background-repeat: no-repeat;
+	background-size: 33px 33px;
+    background-position: 68% 4px;
+    background-color: #fff;
+}
+
+			/*------------------------ 聊天模块下的表单 end ------------------------*/
+
+
+
+
+			/*--------------------------------- 上拉加载 begin -----------------------------------------*/
+#topAddCen {
+	height:45px;
+	line-height: 45px;
+	overflow:hidden;
+    background-color: #F6F6F6;
+    text-align: center;
+    color: #7A7A7B;
+    font-weight: bold;
+    border-top: #DFDFDD solid 1px;
+    background-color: #EFEFF4;
+}
+#topAddCen .mui-spinner {
+    position: relative;
+    top: 6px;
+}
+			/*--------------------------------- 上拉加载 end -----------------------------------------*/
+
+
+
+/*  上传图片或者视频   */
+#upload {
+	float: left;
+	display:inline;
+    width: 100%;
+    overflow: hidden;
+}
+#upload .upImgDiv {
+	position:relative;
+    float: left;
+    display: inline;
+    width: 85px;
+    height: 85px;
+    margin: 13px 13px 0 0;
+}
+#upload .upImgDiv img {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+#upload .upImgDiv b {
+	position:absolute;
+	right:-9px;
+	top:-9px;
+    z-index: 1;
+	display:inline-block;
+	width:24px;
+	height:24px;
+	overflow:hidden;
+	background-image: url('../images/deleteImgOrV.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+#upload .upVidDiv {
+	position:relative;
+    float: left;
+    display: inline;
+	width:83px;
+	height:83px;
+    margin: 13px 13px 0 0;
+	background-color: #DEDEDE;
+	border:#CCCCCC solid 1px;
+}
+#upload .upVidDiv img {
+	display:inline-block;
+	width:31px;
+	height:31px;
+	overflow:hidden;
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -15.5px;
+    margin-top: -15.5px;
+}
+#upload .upVidDiv b {
+	position:absolute;
+	right:-9px;
+	top:-9px;
+    z-index: 1;
+	display:inline-block;
+	width:24px;
+	height:24px;
+	overflow:hidden;
+	background-image: url('../images/deleteImgOrV.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+
+
+
+/* 模拟上传录音弹窗  */
+#moniUpLuyin {
+	position:fixed;
+	top:0;
+	bottom:0;
+	right:0;
+	left:0;
+	height:100%;
+	overflow:hidden;
+	z-index: 777;
+	display:none;
+}
+#moniUpLuyin .moniUpLuyin_1 {
+	position:absolute;
+	left:50%;
+	top:50%;
+	width:136px;
+	height:169px;
+	margin-top: -84.5px;
+	margin-left: -68px;
+	overflow:hidden;
+}
+#moniUpLuyin .moniUpLuyin_1 .moniUpLuyin_cen {
+	position:relative;
+	width:136px;
+	height:136px;
+	overflow:hidden;
+}
+#moniUpLuyin .moniUpLuyin_1 .moniUpLuyin_cen b {
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	overflow:hidden;
+	background-color: #000;
+	opacity: 0.8;
+	border-radius: 6px;
+}
+#moniUpLuyin .moniUpLuyin_1 .moniUpLuyin_cen .luC {
+	position:relative;
+	z-index: 1;
+	overflow:hidden;
+}
+#moniUpLuyin .moniUpLuyin_1 .moniUpLuyin_cen .luC img {
+	display:inline-block;
+	width:66px;
+	height:54px;
+	margin-top: 24px;
+    margin-left: 41px;
+	overflow:hidden;
+}
+#moniUpLuyin .moniUpLuyin_1 .moniUpLuyin_cen .luC p {
+	font-size: 13px;
+	color:#fff;
+	overflow:hidden;
+	text-align: center;
+	margin-bottom: 0;
+}
+#moniUpLuyin .moniUpLuyin_1 .luyp1 {
+	font-size: 13px;
+	color:#333;
+    line-height: 32px;
+    height: 32px;
+	overflow:hidden;
+	text-align: center;
+}
+
+
+ /*             图片表情轮播                   */
+.mui-slider.fuc {
+ 	height:150px;
+ 	overflow:hidden;
+    background-color: #fff;
+}
+.mui-slider.fuc .mui-slider-group {
+ 	height:150px;
+}
+.mui-slider.fuc .mui-slider-group .mui-slider-item {
+	// padding:10px 5px 5px 10px;
+}
+.mui-slider.fuc .mui-slider-group img {
+	float:left;
+	display:inline;
+    width: 28px;
+    height: 28px;
+    margin-left: 13px;
+    margin-top: 11px;
+	overflow:hidden;
+}
+
+
+#caWapBiq {
+	position:relative;
+	float:left;
+	display:inline;
+	width:100%;
+	overflow:hidden;
+}
+#caWapBiq.minHei200 {
+	min-height: 200px;
+}
+.disHide {
+	display:none !important;
+}
+#bbbq {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 11;
+}
+#topbiQ {
+	overflow:hidden;
+	background-color: #fff;
+}
+#topbiQ .topbiQ1 {
+    float: left;
+    display: inline;
+    width: 25%;
+    height: 54px;
+    overflow: hidden;
+    outline: none;
+    border: 0;
+    background-image: url('../images/host/biaoTop1.png');
+    background-repeat: no-repeat;
+    background-size: 31px 48px;
+    background-position: 20px 0px;
+}
+#topbiQ .topbiQ2 {
+    float: left;
+    display: inline;
+    width: 25%;
+    height: 54px;
+    overflow: hidden;
+    outline: none;
+    border: 0;
+    background-image: url('../images/host/biaoTop2.png');
+    background-repeat: no-repeat;
+    background-size: 31px 48px;
+    background-position: 20px 0px;
+}
+
+.voice{
+	position: relative;
+	padding: 5px;
+    height: 41px;
+}
+
+.voice .voice_gif{
+	position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #F9F9F9;
+    display:none !important;
+}
+.voice img{
+	float:left;
+}
+.voice .vo_right{
+	float: left;
+}
+.voice .vo_dian{
+	width: 8px;
+    height: 8px;
+    border-radius: 10px;
+    background-color: red;
+    display: block;
+    margin-bottom: 8px;
+    margin-left: 10px;
+}
+.voice .vo_time{
+	color: #6F6F6F;
+    margin-left: 10px;
+    display: block;
+    font-size: 13px;
+}
