@@ -1476,3 +1476,152 @@ main {
         font-size: 1rem;
     }
 } 
+
+/* ===== 2026-10 更新：首页研究方向、荣誉、新闻链接、研究页 ===== */
+.home-areas {
+    padding-left: 1.2em;
+    margin: 0.4em 0 0.8em 0;
+}
+.home-areas li {
+    margin-bottom: 0.55em;
+    line-height: 1.7;
+}
+a.area-link {
+    color: #C8102E;
+    font-weight: 600;
+    text-decoration: none;
+}
+a.area-link:hover {
+    text-decoration: underline;
+}
+/* 新闻：日期之外的内容放在同一个块里整体换行，避免被拆成多列 */
+.news-list li .news-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.news-list .news-text,
+.news-list .news-text * {
+    word-break: normal !important;
+    overflow-wrap: break-word;
+}
+.news-text a {
+    color: #1a237e;
+    text-decoration: none;
+    border-bottom: 1px dotted #1a237e;
+}
+.news-text a:hover {
+    color: #C8102E;
+    border-bottom-color: #C8102E;
+}
+.awards h2 {
+    color: #C8102E;
+    margin-top: 2rem;
+}
+/* 研究页 */
+.area-toc {
+    text-align: center;
+    margin: 0.5rem 0 1rem 0;
+    line-height: 2;
+}
+.area-toc a {
+    color: #C8102E;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0 0.8rem;
+    white-space: nowrap;
+}
+.area-toc a:hover {
+    text-decoration: underline;
+}
+.area-block {
+    background: #f8f9fa;
+    border-left: 4px solid #C8102E;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 1.8rem 2rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+    box-sizing: border-box;
+    scroll-margin-top: 1rem;
+}
+.area-block h2 {
+    color: #C8102E;
+    margin-top: 0;
+}
+.area-block p {
+    color: #444;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+.area-block a {
+    color: #1a237e;
+}
+.area-figs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0;
+}
+.area-figs figure {
+    margin: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.6rem;
+}
+.area-figs img {
+    width: 100%;
+    height: auto;
+    max-height: 340px;
+    object-fit: contain;
+    display: block;
+}
+.area-figs figcaption {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.4rem;
+    text-align: center;
+}
+.area-papers h3 {
+    color: #1a237e;
+    font-size: 1.15rem;
+    margin: 1.4rem 0 0.6rem 0;
+}
+.area-papers ol {
+    padding-left: 1.4em;
+    margin: 0;
+}
+.area-papers li {
+    margin-bottom: 1em;
+    line-height: 1.7;
+    color: #444;
+}
+.area-papers .paper-title {
+    font-weight: 600;
+    color: #222;
+}
+.area-papers .paper-venue {
+    color: #A4804A;
+    font-style: italic;
+}
+.area-papers .paper-contrib {
+    display: block;
+    font-size: 0.97rem;
+    color: #555;
+    margin-top: 0.25em;
+}
+.area-papers .paper-tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: #C8102E;
+    border: 1px solid #C8102E;
+    border-radius: 4px;
+    padding: 0 0.35em;
+    margin-left: 0.3em;
+}
+@media (max-width: 700px) {
+    .area-block {
+        padding: 1.2rem 1rem;
+    }
+}
