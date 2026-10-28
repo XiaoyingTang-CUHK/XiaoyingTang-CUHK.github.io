@@ -31,7 +31,7 @@
             <h1>研究方向</h1>
         </section>
         <section class="research-areas">
-            <p class="area-toc"><a href="#llm">大模型（推理、提示调优、多模态）</a><a href="#ev">电动车充电优化与智能</a><a href="#fl">联邦学习</a><a href="#grid">算电协同</a></p>
+            <p class="area-toc"><a href="#llm">大模型（推理、提示调优、多模态）</a><a href="#ev">电动车充电优化与智能</a><a href="#fl">联邦学习</a></p>
 
             <div class="area-block" id="llm">
                 <h2>大模型（推理、提示调优、多模态）</h2>
@@ -45,9 +45,9 @@
                 <div class="area-papers">
                     <h3>代表性论文</h3>
                     <ol>
-                        <li><a class="paper-title" href="https://aclanthology.org/2026.acl-long.206/" target="_blank">G²RPO-A: Guided Group Relative Policy Optimization with Adaptive Guidance</a> <span class="paper-venue">ACL 2026</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://aclanthology.org/2026.acl-long.206/" target="_blank">G²RPO-A: Guided Group Relative Policy Optimization with Adaptive Guidance</a> <span class="paper-venue">ACL 2026</span>
                             <span class="paper-contrib">GRPO 不需要代价高昂的价值模型，已成为提升大模型推理能力的重要强化学习方法，但小模型初始推理能力弱、奖励信号稀疏，直接使用效果有限。G²RPO-A 首次为 GRPO 引入自适应指导机制，根据实时训练状态动态注入参考推理步骤，在数学推理和代码生成基准上稳定优于原始 GRPO 和固定指导基线，使 0.6B–1.7B 的小模型也能有效完成强化学习训练。工作表明，在全难度范围内自适应地给出指导比静态筛选样本更有效。</span></li>
-                        <li><a class="paper-title" href="https://openreview.net/forum?id=ZsJnkEgh6l" target="_blank">Shape of Thought: Progressive Object Assembly via Visual Chain-of-Thought</a> <span class="paper-venue">ICML 2026</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://openreview.net/forum?id=ZsJnkEgh6l" target="_blank">Shape of Thought: Progressive Object Assembly via Visual Chain-of-Thought</a> <span class="paper-venue">ICML 2026</span>
                             <span class="paper-contrib">Shape of Thought 提出视觉链式思维框架，让多模态模型交替生成文字计划和渲染出的二维中间状态，逐步完成物体组装，克服纯文本方法在生成计数、属性绑定等任务上的结构脆弱性。工作同时构建了组装轨迹数据集 SoT-26K 和评测基准 T2S-CompBench，用于评估结构完整性和推理过程的忠实度。中间推理步骤无需借助外部几何引擎即可直接检查，效果明显优于纯文本方法。</span></li>
                         <li><a class="paper-title" href="https://arxiv.org/abs/2510.26697" target="_blank">The End of Manual Decoding: Towards Truly End-to-End Language Models</a> <span class="paper-venue">ICLR 2026</span>
                             <span class="paper-contrib">AutoDeco 在 Transformer 上增加轻量预测头，按上下文动态预测每一步的 temperature 与 top-p，并用可微的 soft top-p 替代硬截断，实现训练与解码一体化。在多个模型和任务上达到或超过人工调参的效果，额外延迟约 1.7%，并初步具备用自然语言控制解码方式的能力。</span></li>
@@ -78,13 +78,13 @@
                 <div class="area-papers">
                     <h3>代表性论文</h3>
                     <ol>
-                        <li><a class="paper-title" href="https://doi.org/10.1109/tmc.2024.3427784" target="_blank">Optimal Pricing and Charging Strategy Design for Non-Cooperative Battery Swapping Stations</a> <span class="paper-venue">IEEE TMC 2024</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://doi.org/10.1109/tmc.2024.3427784" target="_blank">Optimal Pricing and Charging Strategy Design for Non-Cooperative Battery Swapping Stations</a> <span class="paper-venue">IEEE TMC 2024</span>
                             <span class="paper-contrib">换电市场中定价竞争与充电控制紧密耦合，以往研究却常常分开优化。本文建立首个联合优化日前定价与实时充电决策的分层非合作博弈模型，并证明子博弈完美纳什均衡的存在性与唯一性，为不确定需求下竞争换电站的分散运营提供严格的理论基础。</span></li>
-                        <li><a class="paper-title" href="https://doi.org/10.1109/tte.2026.3667065" target="_blank">Economical Analysis of Optimal Charging Station Upgrade Time</a> <span class="paper-venue">IEEE TTE 2026</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://doi.org/10.1109/tte.2026.3667065" target="_blank">Economical Analysis of Optimal Charging Station Upgrade Time</a> <span class="paper-venue">IEEE TTE 2026</span>
                             <span class="paper-contrib">现有研究缺少判断充电站何时应从慢充升级为快充的严格准则。本文建立覆盖静态与动态需求、垄断与双寡头竞争的统一经济模型，证明存在唯一的最优升级阈值，并揭示技术成本、需求增长和竞争压力如何共同决定最优升级时机。</span></li>
-                        <li><a class="paper-title" href="https://doi.org/10.1109/jiot.2025.3530449" target="_blank">Incorporating Bounded Rationality Into Electric Vehicle Highway Charging Decisions: A Bayesian Game Analysis</a> <span class="paper-venue">IEEE Internet of Things Journal, 2025</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://doi.org/10.1109/jiot.2025.3530449" target="_blank">Incorporating Bounded Rationality Into Electric Vehicle Highway Charging Decisions: A Bayesian Game Analysis</a> <span class="paper-venue">IEEE Internet of Things Journal, 2025</span>
                             <span class="paper-contrib">传统高速公路充电模型假设司机完全理性，忽视了里程焦虑和风险敏感行为。本文首次将前景理论与贝叶斯博弈结合，同时刻画里程焦虑、风险规避和信息不完全，并证明贝叶斯纳什均衡的存在性与唯一性，使行为不确定性可以进行严格的数学分析。</span></li>
-                        <li><a class="paper-title" href="https://doi.org/10.1109/tii.2025.3563534" target="_blank">Personalized Federated Management and Load Balancing for Multiple Charging Stations</a> <span class="paper-venue">IEEE TII 2025</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://doi.org/10.1109/tii.2025.3563534" target="_blank">Personalized Federated Management and Load Balancing for Multiple Charging Stations</a> <span class="paper-venue">IEEE TII 2025</span>
                             <span class="paper-contrib">本文提出首个分层个性化联邦强化学习框架，在不共享本地原始数据的前提下协调目标各异的多个充电站；结合基于相似度的个性化聚合与零售商—充电站协调机制，在统一框架内兼顾单站性能与系统负荷管理，适用于实际多站充电网络中可扩展、保护隐私的部署。</span></li>
                         <li><a class="paper-title" href="https://doi.org/10.1109/tsg.2026.3702856" target="_blank">Charging Station Pricing and Scheduling With Localized Personal Information via Offloading Computation to EVs</a> <span class="paper-venue">IEEE TSG 2026</span>
                             <span class="paper-contrib">本文提出主从协同强化学习方法（MFCRL）协调多个充电站：充电站作为主体，把涉及私有内部状态的训练任务卸载给作为从体的电动车，并聚合其本地模型更新，在保护车主隐私的同时适应动态电价和变化的站点占用。</span></li>
@@ -104,36 +104,18 @@
                 <div class="area-papers">
                     <h3>代表性论文</h3>
                     <ol>
-                        <li><a class="paper-title" href="https://arxiv.org/abs/2205.13925" target="_blank">DELTA: Diverse Client Sampling for Fasting Federated Learning</a> <span class="paper-venue">NeurIPS 2023</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://arxiv.org/abs/2205.13925" target="_blank">DELTA: Diverse Client Sampling for Fasting Federated Learning</a> <span class="paper-venue">NeurIPS 2023</span>
                             <span class="paper-contrib">本文研究联邦学习中的一个基础问题：非凸场景下的最优客户端采样策略。工作为一般的无偏客户端采样建立了新的收敛分析框架，提出首个基于梯度多样性的无偏采样器 DELTA，并证明其收敛速度优于包括经典重要性采样（FedIS）在内的现有方法；同时在更弱的假设下给出非凸 FedIS 更紧的收敛界，解决了非凸联邦学习收敛分析中的关键理论障碍。</span></li>
-                        <li><a class="paper-title" href="https://openreview.net/forum?id=R8eRV29kGt" target="_blank">FedEBA+: Towards Fair and Effective Federated Learning via Entropy-Based Model</a> <span class="paper-venue">ICML 2026</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://openreview.net/forum?id=R8eRV29kGt" target="_blank">FedEBA+: Towards Fair and Effective Federated Learning via Entropy-Based Model</a> <span class="paper-venue">ICML 2026</span>
                             <span class="paper-contrib">FedEBA+ 解决联邦学习中客户端公平性与全局性能之间的矛盾：利用最大熵原理进行无偏的客户端聚合，并通过逐步对齐纠正本地漂移，在提升全局性能的同时缩小客户端之间的性能差距，避免了以往方法为公平性牺牲精度。理论上，该工作首次将联邦公平性分析从受限的线性模型推广到一般强凸情形，并在非凸情形下给出可比的收敛速度。</span></li>
-                        <li><a class="paper-title" href="https://arxiv.org/abs/2301.12379" target="_blank">FedRC: Tackling Diverse Distribution Shifts Challenge in Federated Learning by Robust Clustering</a> <span class="paper-venue">ICML 2024</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://arxiv.org/abs/2301.12379" target="_blank">FedRC: Tackling Diverse Distribution Shifts Challenge in Federated Learning by Robust Clustering</a> <span class="paper-venue">ICML 2024</span>
                             <span class="paper-contrib">以往工作通常只处理单一类型的分布偏移（如特征偏移或标签偏移）。FedRC 首次处理特征、标签和概念三类偏移同时存在的情形，这在联邦学习中普遍存在却缺少研究。FedRC 将双层优化框架与新的目标函数结合，在多种分布偏移下实现鲁棒聚类，保证实际部署中的稳定性与可扩展性。</span></li>
-                        <li><a class="paper-title" href="https://arxiv.org/abs/2205.13462" target="_blank">FedBR: Improving Federated Learning on Heterogeneous Data via Local Learning Bias Reduction</a> <span class="paper-venue">ICML 2023</span><span class="paper-tag">代表作</span>
+                        <li><a class="paper-title" href="https://arxiv.org/abs/2205.13462" target="_blank">FedBR: Improving Federated Learning on Heterogeneous Data via Local Learning Bias Reduction</a> <span class="paper-venue">ICML 2023</span>
                             <span class="paper-contrib">本文指出异构联邦学习中三种尚未充分研究的本地学习偏差来源，并提出首个统一框架 FedBR，通过输出平衡和极小极大对比学习，同时减少本地特征学习和分类器更新中的偏差。</span></li>
                         <li><a class="paper-title" href="https://openreview.net/pdf?id=zPDpdk3V8L" target="_blank">Enhancing Clustered Federated Learning: Integration of Strategies and Improved Methodologies</a> <span class="paper-venue">ICLR 2025</span>
                             <span class="paper-contrib">本文把现有聚类联邦学习方法统一到一个整体框架中，分析各类方法的不足，并在此基础上提出改进算法 HCFL+。</span></li>
                         <li><a class="paper-title" href="https://arxiv.org/abs/2407.04460" target="_blank">AFIND+: Adaptive Client-Centric Collaboration for Decentralized Personalized Federated Learning</a> <span class="paper-venue">IEEE TMC 2026（已录用，链接为预印本）</span>
                             <span class="paper-contrib">在没有中心服务器的去中心化联邦学习中，并非所有邻居都能帮助提升本地模型。AFIND+ 识别有帮助的邻居，自适应地调整所选邻居的数量，并按贡献聚合邻居模型；在多种数据划分的真实数据集上优于其他去中心化采样算法，并可与多数现有去中心化优化算法结合使用。</span></li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="area-block" id="grid">
-                <h2>算电协同</h2>
-                <p>人工智能的发展带动数据中心用电快速增长，算力与电力的协同成为新的研究问题。实验室研究数据中心与电网的协同优化，以及 AI 算力负载调度与电网调度之间的耦合机制。这一方向建立在实验室的电力系统研究之上：在调频方面，针对大量电力电子变流器接入的电力系统，按各机组对频率最低点、频率变化率和调频里程的综合贡献设计一次调频市场（<a href="https://doi.org/10.1109/tpwrs.2023.3303176" target="_blank">IEEE TPWRS</a>）；在调度方面，把多类备用纳入机组组合问题，用结合强化学习与优化求解的混合方法求解（<a href="https://doi.org/10.1109/tii.2025.3642899" target="_blank">IEEE TII</a>）。</p>
-                <div class="area-figs">
-                    <figure><img src="../论文图片/TII2026-Liao.png" alt="多类备用机组组合"><figcaption>多类备用机组组合的混合优化框架（IEEE TII 2026）</figcaption></figure>
-                    <figure><img src="../论文图片/15.png" alt="一次调频市场"><figcaption>各机组对频率最低点、频率变化率和调频里程的贡献（IEEE TPWRS 2024）</figcaption></figure>
-                </div>
-                <div class="area-papers">
-                    <h3>代表性论文</h3>
-                    <ol>
-                        <li><a class="paper-title" href="https://doi.org/10.1109/tii.2025.3642899" target="_blank">Integrating Multiple Reserves in Unit Commitment Problem: A Hybrid Optimization Approach</a> <span class="paper-venue">IEEE TII 2026</span>
-                            <span class="paper-contrib">把多类备用同时纳入机组组合问题：由 Actor-Critic 强化学习生成决策，再经动作过滤和多备用约束经济调度校验，形成强化学习与优化求解结合的混合方法。</span></li>
-                        <li><a class="paper-title" href="https://doi.org/10.1109/tpwrs.2023.3303176" target="_blank">Comprehensive-Contribution-Based Primary Frequency Regulation Market Design for the Converter-Integrated Power System</a> <span class="paper-venue">IEEE TPWRS 2024</span>
-                            <span class="paper-contrib">面向大量变流器接入的电力系统，按照各机组对频率最低点、频率变化率和调频里程的综合贡献设计一次调频市场与补偿机制。</span></li>
                     </ol>
                 </div>
             </div>
